@@ -17,6 +17,7 @@ namespace version
 		Version();
 		void help();
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver) = 0;
+		virtual bool compare(const std::string& package,const std::string& op,octetos::core::Semver& ver) = 0;
 	};
 	
 	class Portage : public Version
@@ -26,6 +27,7 @@ namespace version
 	public:
 		Portage();
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver);
+		virtual bool compare(const std::string& package,const std::string& op,octetos::core::Semver& ver);
 	}; 
 
 }

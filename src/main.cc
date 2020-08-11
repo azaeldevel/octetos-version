@@ -78,8 +78,23 @@ int main(int argc, char *argv[])
 			return EXIT_FAILURE;
 		}		
 	}
-
 	
+	if(strcmp(argv[1],"-c") == 0)
+	{
+		octetos::core::Semver verpk;
+		verpk.set(argv[4]);
+		if(cmdver.compare(argv[2],argv[3],verpk))
+		{
+			std::cout << "true\n";
+			return EXIT_SUCCESS;
+		}
+		else 
+		{
+			std::cout << "false\n";
+			return EXIT_FAILURE;
+		}
+	}
+		
 	std::cerr << "Unknow parameters.\n";
 	return EXIT_FAILURE;
 }

@@ -21,6 +21,7 @@ void Version::help()
 	std::cout << "version [options] parameters.\n";
 	std::cout << "version -h|--help.\n";
 	std::cout << "version -g|--get.\n";
+	std::cout << "version -c packagename operator version.\n";
 }
 
 Version::Version()
@@ -31,7 +32,40 @@ Version::Version()
 
 
 
-
+bool Portage::compare(const std::string& package,const std::string& op,octetos::core::Semver& ver)
+{
+	octetos::core::Semver ver1;
+	getVersion(package,ver1);
+		
+	if(op.compare("==") == 0)
+	{
+		return (ver1==ver);
+	}
+	else if(op.compare(">") == 0)
+	{
+		return (ver1>ver);
+	}
+	else if(op.compare("<") == 0)
+	{
+		return (ver1<ver);
+	}
+	else if(op.compare(">=") == 0)
+	{
+		return (ver1>=ver);
+	}
+	else if(op.compare("<=") == 0)
+	{
+		return (ver1<=ver);
+	}
+	else if(op.compare("!=") == 0)
+	{
+		return (ver1!=ver);
+	}
+	else
+	{
+		return false;
+	}
+}
 bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 {
 	std::string category,name;

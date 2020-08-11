@@ -1,6 +1,3 @@
-## Process this file with automake to produce Makefile.in
-
-## Created by Anjuta
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
@@ -12,20 +9,20 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = octetos_version
+bin_PROGRAMS = version
 
-octetos_version_SOURCES = \
+version_SOURCES = \
 	main.cc \
 	version.cc
 
-octetos_version_LDFLAGS = 
+version_LDFLAGS = 
 
-octetos_version_LDADD = $(OCTETOS_VERSION_LIBS) 
+version_LDADD = $(OCTETOS_VERSION_LIBS) 
 
 if WITH_PORTAGE
-octetos_version_CPPFLAGS = -DPORTAGE
+version_CPPFLAGS = -DPORTAGE
 endif
 
 if NATIVE_WIN32
-octetos_version_LDFLAGS += -mwindows 
+version_LDFLAGS += -mwindows 
 endif

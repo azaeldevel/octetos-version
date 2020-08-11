@@ -67,19 +67,19 @@ bool Portage::compare(const std::string& package,const std::string& op,octetos::
 	{
 		return (ver1==ver);
 	}
-	else if(op.compare(">") == 0)
+	else if(op.compare(">") == 0 or op.compare("g") == 0)
 	{
 		return (ver1>ver);
 	}
-	else if(op.compare("<") == 0)
+	else if(op.compare("<") == 0 or op.compare("s") == 0)
 	{
 		return (ver1<ver);
 	}
-	else if(op.compare(">=") == 0)
+	else if(op.compare(">=") == 0 or op.compare("g=") == 0)
 	{
 		return (ver1>=ver);
 	}
-	else if(op.compare("<=") == 0)
+	else if(op.compare("<=") == 0 or op.compare("s=") == 0)
 	{
 		return (ver1<=ver);
 	}

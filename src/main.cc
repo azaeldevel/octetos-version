@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 #endif
 
 	//>>>>>>>>>>>>>>>>>>>>>generic operations	
-	if(strcmp(argv[1],"-h") == 0)
+	if(cmdver.getop_help())
 	{
 		if(argc > 2)
 		{
@@ -45,14 +45,9 @@ int main(int argc, char *argv[])
 		cmdver.help();
 		return EXIT_SUCCESS;
 	}
-	else if(strcmp(argv[1],"--help") == 0)
-	{
-		cmdver.help();
-		return EXIT_SUCCESS;
-	}
 	
 	//>>>>>>>>>>>>>>>>>>>>>portage operation
-	if(strcmp(argv[1],"-g") == 0)
+	if(cmdver.getop_version())
 	{
 		octetos::core::Semver verpk;
 		if(cmdver.getVersion(argv[2],verpk))
@@ -64,19 +59,6 @@ int main(int argc, char *argv[])
 		{
 			return EXIT_FAILURE;
 		}
-	}
-	else if(strcmp(argv[1],"--get") == 0)
-	{
-		octetos::core::Semver verpk;
-		if(cmdver.getVersion(argv[2],verpk))
-		{
-			std::cout << (std::string)verpk << "\n";
-			return EXIT_SUCCESS;
-		}
-		else 
-		{
-			return EXIT_FAILURE;
-		}		
 	}
 	
 	if(cmdver.getop_compare())

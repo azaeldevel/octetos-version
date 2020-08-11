@@ -12,7 +12,7 @@ namespace version
 {
 	class Version
 	{
-	private:
+	protected:
 		bool op_help;
 
 	public:
@@ -20,6 +20,7 @@ namespace version
 		void help();
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver) = 0;
 		virtual bool compare(const std::string& package,const std::string& op,octetos::core::Semver& ver) = 0;
+		bool getop_help()const;
 	};
 	
 	class Portage : public Version

@@ -16,17 +16,32 @@ namespace octetos
 namespace version
 {
 
+
+bool Version::getop_help()const
+{
+	return op_help;
+}
 void Version::help()
 {
-	std::cout << "version [options] parameters.\n";
-	std::cout << "version -h|--help.\n";
-	std::cout << "version -g|--get.\n";
-	std::cout << "version -c|-cf packagename operator version.\n";
+	std::cout << "version options parameters.		Generic format.\n";
+	std::cout << "version -h.					For help.\n";
+	std::cout << "version -g packagename		To get version form package.\n";
+	std::cout << "version -c|-ci packagename operator version.		Compare package with version.\n";
 }
 
 Version::Version(int argc, char *argv[])
 {
 	op_help = false;
+
+	std::string ops = argv[1];
+
+	for(char c : ops)
+	{		
+		if(c == 'h')
+		{
+			op_help = true;
+		}
+	}
 }
 
 
@@ -136,12 +151,7 @@ Portage::Portage(int argc, char *argv[]):Version(argc,argv)
 
 	for(char c : ops)
 	{
-		//std::cout << "(" << c << ").\n";
-		if(c == '-')
-		{
-			
-		}
-		else if(c == 'c')
+		if(c == 'c')
 		{
 			op_compare = true;
 		}

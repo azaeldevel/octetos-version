@@ -17,48 +17,7 @@ namespace version
 {
 
 
-bool Version::getop_help()const
-{
-	return op_help;
-}
-void Version::help()
-{
-	std::cout << "version options parameters.		Generic format.\n";
-	std::cout << "version -h.					For help.\n";
-	std::cout << "version -g packagename		To get version form package.\n";
-	std::cout << "version -c|-ci packagename operator version.		Compare package with version.\n";
-}
-
-Version::Version(int argc, char *argv[])
-{
-	op_help = false;
-
-	std::string ops = argv[1];
-
-	for(char c : ops)
-	{		
-		if(c == 'h')
-		{
-			op_help = true;
-		}
-	}
-}
-
-
-
-bool Portage::getop_compare()const
-{
-	return op_compare;
-}
-bool Portage::getop_indicators()const
-{
-	return op_indicators;
-}
-bool Portage::getop_version()const
-{
-	return op_getver;
-}
-bool Portage::compare(const std::string& package,const std::string& op,octetos::core::Semver& ver)
+bool Version::compare(const std::string& package,const std::string& op,octetos::core::Semver& ver)
 {
 	octetos::core::Semver ver1;
 	getVersion(package,ver1);
@@ -92,6 +51,64 @@ bool Portage::compare(const std::string& package,const std::string& op,octetos::
 		return false;
 	}
 }
+bool Version::getop_help()const
+{
+	return op_help;
+}
+void Version::help()
+{
+	std::cout << "version options parameters.			Generic format.\n";
+	std::cout << "version -h.							For help.\n";
+	std::cout << "version -g packagename				To get version form package.\n";
+	std::cout << "version -c|-ci packagename operator version.			Compare package with version.\n";
+}
+Version::Version(int argc, char *argv[])
+{
+	op_help = false;
+	op_compare = false;
+	op_indicators = false;
+	op_getver = false;
+	
+	std::string ops = argv[1];
+
+	for(char c : ops)
+	{		
+		if(c == 'h')
+		{
+			op_help = true;
+		}
+		else if(c == 'c')
+		{
+			op_compare = true;
+		}
+		else if(c == 'i')
+		{
+			op_indicators = true;
+		}
+		else if(c == 'g')
+		{
+			op_getver = true;
+		}
+	}
+}
+bool Version::getop_compare()const
+{
+	return op_compare;
+}
+bool Version::getop_indicators()const
+{
+	return op_indicators;
+}
+bool Version::getop_version()const
+{
+	return op_getver;
+}
+
+
+
+
+
+
 bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 {
 	std::string category,name;
@@ -135,6 +152,8 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		}
 	}
 
+	if(!findedPk) return false;
+
 	std::string verpk = pkname.substr(name.size() + 1);
 	if(!ver.extractNumbers(verpk)) return false;
 	
@@ -142,29 +161,10 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 }
 Portage::Portage(int argc, char *argv[]):Version(argc,argv)
 {
-	op_compare = false;
-	op_indicators = false;
-	op_getver = false;
 	db = "/var/db/pkg/";
-
-	std::string ops = argv[1];
-
-	for(char c : ops)
-	{
-		if(c == 'c')
-		{
-			op_compare = true;
-		}
-		else if(c == 'i')
-		{
-			op_indicators = true;
-		}
-		else if(c == 'g')
-		{
-			op_getver = true;
-		}
-	}
 }
+
+
 
 
 }

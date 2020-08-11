@@ -20,8 +20,14 @@
 #include <iostream>
 #include <string.h>
 
-#include "version.hh"
 
+#ifdef PORTAGE
+	#include "version.hh"
+#elif PACMAN
+	#include "Pacman.hh"
+#elif APT
+#error "The backend for APT is in development"
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -29,7 +35,7 @@ int main(int argc, char *argv[])
 #ifdef PORTAGE
 	octetos::version::Portage cmdver(argc,argv);
 #elif PACMAN
-#error "The backend for PACMAN is in development"
+	octetos::version::Pacman cmdver(argc,argv);
 #elif APT
 #error "The backend for APT is in development"
 #endif

@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(octetos_version, 0.6.2)
+AC_INIT(octetos_version, 0.7.0)
 
 AC_CONFIG_HEADERS([config.h])
 
@@ -49,13 +49,17 @@ AM_CONDITIONAL(PLATFORM_WIN32, test x"$platform_win32" = "xyes")
 AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
 AM_CONDITIONAL(WITH_PORTAGE, test x"$with_portage" = "xyes")
-AC_ARG_WITH([portage], AS_HELP_STRING([--with-portage], [Compilando con soporte para Portage.]))
+AC_ARG_WITH([portage], AS_HELP_STRING([--with-portage], [Activando soporte para Portage.]))
+
+AM_CONDITIONAL(WITH_PACMAN, test x"$with_pacman" = "xyes")
+AC_ARG_WITH([pacman], AS_HELP_STRING([--with-pacman], [Activando soporte para pacman.]))
+
 
 
 LT_INIT([win32-dll])
 
 
-PKG_CHECK_MODULES(OCTETOS_VERSION, [octetos-core octetos-coreutils ])
+PKG_CHECK_MODULES(OCTETOS_VERSION, [octetos-core octetos-coreutils])
 
 
 

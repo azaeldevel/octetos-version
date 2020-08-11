@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(octetos_version, 0.1.0)
+AC_INIT(octetos_version, 0.5.0)
 
 AC_CONFIG_HEADERS([config.h])
 
@@ -50,9 +50,7 @@ AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
 AM_CONDITIONAL(WITH_PORTAGE, test x"$with_portage" = "xyes")
 AC_ARG_WITH([portage], AS_HELP_STRING([--with-portage], [Compilando con soporte para Portage.]))
-if test "x$with_portage" = "xyes"; then
-	AC_DEFINE([PORTAGE],[1],"enable Portage")
-fi
+
 
 LT_INIT([win32-dll])
 

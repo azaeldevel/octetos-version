@@ -21,7 +21,7 @@ void Version::help()
 	std::cout << "version [options] parameters.\n";
 	std::cout << "version -h|--help.\n";
 	std::cout << "version -g|--get.\n";
-	std::cout << "version -c packagename operator version.\n";
+	std::cout << "version -c|-cf packagename operator version.\n";
 }
 
 Version::Version()

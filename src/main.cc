@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 {
 	
 #ifdef PORTAGE
-	octetos::version::Portage cmdver;
+	octetos::version::Portage cmdver(argc,argv);
 #elif PACMAN
 #error "The backend for PACMAN is in development"
 #elif APT
@@ -79,36 +79,36 @@ int main(int argc, char *argv[])
 		}		
 	}
 	
-	if(strcmp(argv[1],"-c") == 0)
+	if(cmdver.getop_compare())
 	{
 		octetos::core::Semver verpk;
 		verpk.set(argv[4]);
 		if(cmdver.compare(argv[2],argv[3],verpk))
 		{
-			std::cout << "true\n";
+			if(cmdver.getop_indicators())
+			{
+				std::cout << argv[2] << " : pass\n";				
+			}
+			else
+			{
+				std::cout << "true\n";
+			}
 			return EXIT_SUCCESS;
 		}
 		else 
 		{
-			std::cout << "false\n";
+			if(cmdver.getop_indicators())
+			{
+				std::cout << argv[2] << " : reject\n";				
+			}
+			else
+			{
+				std::cout << "false\n";
+			}
 			return EXIT_FAILURE;
 		}
-	}		
-	if(strcmp(argv[1],"-cf") == 0)
-	{
-		octetos::core::Semver verpk;
-		verpk.set(argv[4]);
-		if(cmdver.compare(argv[2],argv[3],verpk))
-		{
-			std::cout << argv[2] << ": pass\n";
-			return EXIT_SUCCESS;
-		}
-		else 
-		{
-			std::cout << argv[2] << ": reject\n";
-			return EXIT_FAILURE;
-		}
-	}
+	}	
+	
 	std::cerr << "Unknow parameters.\n";
 	return EXIT_FAILURE;
 }

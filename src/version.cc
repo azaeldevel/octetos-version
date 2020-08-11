@@ -24,14 +24,25 @@ void Version::help()
 	std::cout << "version -c|-cf packagename operator version.\n";
 }
 
-Version::Version()
+Version::Version(int argc, char *argv[])
 {
-	
+	op_help = false;
 }
 
 
 
-
+bool Portage::getop_compare()const
+{
+	return op_compare;
+}
+bool Portage::getop_indicators()const
+{
+	return op_indicators;
+}
+bool Portage::getop_version()const
+{
+	return op_getver;
+}
 bool Portage::compare(const std::string& package,const std::string& op,octetos::core::Semver& ver)
 {
 	octetos::core::Semver ver1;
@@ -114,9 +125,35 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	
 	return true;
 }
-Portage::Portage()
+Portage::Portage(int argc, char *argv[]):Version(argc,argv)
 {
+	op_compare = false;
+	op_indicators = false;
+	op_getver = false;
 	db = "/var/db/pkg/";
+
+	std::string ops = argv[1];
+
+	for(char c : ops)
+	{
+		//std::cout << "(" << c << ").\n";
+		if(c == '-')
+		{
+			
+		}
+		else if(c == 'c')
+		{
+			op_compare = true;
+		}
+		else if(c == 'i')
+		{
+			op_indicators = true;
+		}
+		else if(c == 'g')
+		{
+			op_getver = true;
+		}
+	}
 }
 
 

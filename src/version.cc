@@ -94,7 +94,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	coreutils::Apishell shell;
 	shell.cd(db+category);	
 	std::list<std::string> dirs;
-	if(!shell.ls(".",dirs)) return false;
+	if(!shell.ls(dirs)) return false;
 
 	bool findedPk = false;
 	std::string pkname;
@@ -110,7 +110,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	}
 
 	std::string verpk = pkname.substr(name.size() + 1);
-	ver.set(verpk);
+	if(!ver.extractNumbers(verpk)) return false;
 	
 	return true;
 }

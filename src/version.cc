@@ -76,9 +76,8 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	}
 
 	std::string verpk = pkname.substr(name.size() + 1);
-	//std::cout << "version : " << verpk << ".\n";
 	ver.set(verpk);
-
+	
 	return true;
 }
 Portage::Portage()

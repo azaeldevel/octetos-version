@@ -54,11 +54,9 @@ int main(int argc, char *argv[])
 	//>>>>>>>>>>>>>>>>>>>>>portage operation
 	if(strcmp(argv[1],"-g") == 0)
 	{
-		//std::string verpk;
 		octetos::core::Semver verpk;
 		if(cmdver.getVersion(argv[2],verpk))
 		{
-			//ver.set(verpk);
 			std::cout << (std::string)verpk << "\n";
 			return EXIT_SUCCESS;
 		}
@@ -69,7 +67,16 @@ int main(int argc, char *argv[])
 	}
 	else if(strcmp(argv[1],"--get") == 0)
 	{
-		
+		octetos::core::Semver verpk;
+		if(cmdver.getVersion(argv[2],verpk))
+		{
+			std::cout << (std::string)verpk << "\n";
+			return EXIT_SUCCESS;
+		}
+		else 
+		{
+			return EXIT_FAILURE;
+		}		
 	}
 
 	

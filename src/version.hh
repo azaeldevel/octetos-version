@@ -18,6 +18,8 @@ namespace version
 		bool op_compare;//activa la operacion de coparacion
 		bool op_indicators;//activa las opciones de visualizacion mas adecuado para hacer comprensible el texto
 		bool op_getver;
+		bool op_warning;
+		bool op_error;
 
 	public:
 		Version(int argc, char *argv[]);

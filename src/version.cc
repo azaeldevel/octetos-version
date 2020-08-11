@@ -68,6 +68,8 @@ Version::Version(int argc, char *argv[])
 	op_compare = false;
 	op_indicators = false;
 	op_getver = false;
+	op_warning = false;
+	op_error = false;
 	
 	std::string ops = argv[1];
 
@@ -88,6 +90,14 @@ Version::Version(int argc, char *argv[])
 		else if(c == 'g')
 		{
 			op_getver = true;
+		}
+		else if(c == 'w')
+		{
+			op_warning = true;
+		}
+		else if(c == 'e')
+		{
+			op_error = true;
 		}
 	}
 }

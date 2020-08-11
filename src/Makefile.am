@@ -25,9 +25,6 @@ version_LDFLAGS =
 
 
 version_LDADD = $(OCTETOS_VERSION_LIBS)
-if WITH_PACMAN
-version_LDADD += $(LIBALPM_LIBS)
-endif
 
 
 

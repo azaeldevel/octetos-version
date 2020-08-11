@@ -28,10 +28,8 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 	std::string pkname;
 	for(std::string d : dirs)
 	{
-		//std::cout << "Cat : " << d << ".\n";
 		if(d.find(package + "-") == 0 )
 		{
-			//std::cout << "Pk : " << d << ".\n";
 			findedPk = true;
 			pkname = d;
 		}

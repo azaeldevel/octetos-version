@@ -33,15 +33,6 @@ namespace version
 		bool getop_version()const;
 	};
 	
-	class Portage : public Version
-	{
-	private:
-		
-	public:
-		Portage(int argc, char *argv[]);
-		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver);
-	}; 
-
 
 }
 }

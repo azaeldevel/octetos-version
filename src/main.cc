@@ -22,7 +22,7 @@
 
 
 #ifdef PORTAGE
-	#include "version.hh"
+	#include "Portage.hh"
 #elif PACMAN
 	#include "Pacman.hh"
 #elif APT

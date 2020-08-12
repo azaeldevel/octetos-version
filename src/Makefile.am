@@ -15,6 +15,9 @@ bin_PROGRAMS = version
 version_SOURCES = \
 	main.cc \
 	version.cc
+if WITH_PORTAGE
+version_SOURCES += Portage.cc
+endif
 if WITH_PACMAN
 version_SOURCES += Pacman.cc
 endif

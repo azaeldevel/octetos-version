@@ -11,12 +11,11 @@ namespace version
 	class Portage : public Version
 	{
 	private:
-		
+		bool deductCategory(const std::string& package,std::string& cantegory);
 	public:
 		Portage(int argc, char *argv[]);
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver);
 	}; 
-
 
 }
 }

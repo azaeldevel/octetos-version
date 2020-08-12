@@ -22,7 +22,11 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 	coreutils::Apishell shell;
 	shell.cd(db);	
 	std::list<std::string> dirs;
-	if(!shell.ls(dirs)) return false;
+	if(!shell.ls(dirs))
+	{
+		std::cerr << "Fallo la lectura de la base de datos.\n";
+		return false;
+	}
 	
 	bool findedPk = false;
 	std::string pkname;
@@ -57,13 +61,32 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 		}
 	}
 
-	if(!findedPk) return false;
-	if(counpk_match > 1) return false;
+	if(!findedPk) 
+	{
+		std::cerr << "Paquete no encontrado, puede deverse a que no existe o no esta instalado.\n";
+		return false;
+	}
+	if(counpk_match > 1)
+	{
+		std::cerr << "Nombre ambiguo, agrege informacion de version si hay puede haber diferentes version del mismmo paquete.\n";
+		for(std::string d : dirs)
+		{
+			if(d.find(name + "-" ) == 0 )
+			{
+				std::cerr << "\t" << d << ".\n";
+			}
+		}
+		return false;
+	}
 
 	std::string verpk;
 	if(std::string::npos != with_flver) verpk = pkname.substr(with_flver + 1);
 	else verpk = pkname.substr(package.size() + 1);
-	if(!ver.extractNumbers(verpk)) return false;
+	if(!ver.extractNumbers(verpk)) 
+	{
+		std::cerr << "Fallo al parsear la version '" << verpk << "'.\n";
+		return false;
+	}
 	
 	return true;
 }

@@ -9,10 +9,66 @@ namespace octetos
 namespace version
 {
 
+bool Portage::deductCategory(const std::string& name,std::string& category)
+{
+	//std::cout << "deductCategory:Step 0.\n";
+	
+	//int countmatch = 0;
+	coreutils::Apishell shell;
+	std::string prevCat = "";
+	
+	if(!shell.cd(db))	
+	{
+		std::cerr << "Fallo la lectura de la base de datos.\n";
+		return false;
+	}
+	//std::cout << "deductCategory:Step 1. \n";
+	std::list<std::string> dirs;
+	if(!shell.ls(dirs)) 
+	{
+		std::cerr << "Fallo la lectura de la base de datos.\n";
+		return false;
+	}
+	//std::cout << "deductCategory:Step 2. \n";
+	
+	coreutils::Apishell shell2;
+	std::list<std::string> dirs2;
+	for(std::string cat : dirs)
+	{
+		//std::cout << "deductCategory:Step 2.1. \n";
+		dirs2.clear();
+		
+		//std::cout << "deductCategory:Step 2.2. \n";
+		//std::cout << db+cats << ".\n";
+		if(!shell2.cd(db+cat+"/"))
+		{
+			std::cerr << "Fallo la lectura de la base de datos.\n";
+			return false;
+		}	
+		//std::cout << "deductCategory:Step 2.1. \n";
+		if(!shell2.ls(dirs2)) 
+		{
+			std::cerr << "Fallo la lectura de la base de datos.\n";
+			return false;
+		}
+		//std::cout << "deductCategory:Step 2.4. \n";
+		for(std::string pk : dirs2)
+		{
+			if(pk.find(name) == 0)
+			{
+				//std::cout << cat << "/" << pk << "(" << name << ")" << ".\n";
+				//¿que pasa si se repite el nombe del paquete en la categoria?
+				prevCat = cat;
+			}
+		}
+	}
 
+	category = prevCat;
+	return true;
+}
 bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 {
-	//std::cout << "Step 0. \n";
+	//std::cout << "getVersion:Step 0. \n";
 	std::string category,name;
 
 	//separando nombre de paquete en categoria y paquete
@@ -21,20 +77,35 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 					std::sregex_token_iterator(package.begin(), package.end(), regex, -1),
 					std::sregex_token_iterator()
 					);
-	
+	//std::cout << "getVersion:Step 1. \n";
 	if(regexout.size() == 2)
 	{
 		category = regexout[0];
 		name = regexout[1];
 	}
+	else if(regexout.size() == 1)
+	{
+		//std::cout << "getVersion:Step 1.1.\n";
+		name = package;
+		if(deductCategory(name,category))
+		{
+			
+		}
+		else
+		{
+			//es necesario poner el nombre completo del paquete.
+			std::cerr << "Deve indicar el nombre completo del paqauete.\n";
+			return false;
+		}
+		//std::cout << "Step 1.2. \n";
+	}
 	else
 	{
-		//es necesario poner el nombre completo del paquete.
 		std::cerr << "Deve indicar el nombre completo del paqauete.\n";
 		return false;
 	}
 	
-	//std::cout << "Step 1. \n";
+	//std::cout << "Step 2. \n";
 	coreutils::Apishell shell;
 	if(!shell.cd(db+category))	
 	{
@@ -47,7 +118,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		std::cerr << "Fallo la lectura de la base de datos.\n";
 		return false;
 	}
-	std::cout << "Step 2. \n";
+	//std::cout << "Step 2. \n";
 	bool findedPk = false;
 	std::string pkname;
 	std::size_t with_flver = name.find("-");//si el paquete incluye informacion de version
@@ -106,7 +177,6 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	}
 
 	std::string verpk;
-	//std::cerr << pkname << "\n";
 	if(std::string::npos != with_flver) verpk = pkname.substr(with_flver + 1);
 	else verpk = pkname.substr(name.size() + 1);
 	if(!ver.extractNumbers(verpk)) 

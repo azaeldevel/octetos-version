@@ -69,7 +69,7 @@ bool Portage::deductCategory(const std::string& name,std::string& category)
 }
 bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 {
-	//std::cout << "getVersion:Step 0. \n";
+	//std::cout << "getVersion:Step 1. \n";
 	std::string category,name;
 
 	//separando nombre de paquete en categoria y paquete

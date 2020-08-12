@@ -127,7 +127,10 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	//std::cout << "Step 2. \n";
 	bool findedPk = false;
 	std::string pkname;
-	std::size_t with_flver = name.find("-");//si el paquete incluye informacion de version
+	//std::size_t with_flver = name.find("-");//si el paquete incluye informacion de version
+	int indexVer = -1;
+	octetos::core::Semver verFlag;
+	std::string strPureName = "",strPureVer;
 	//std::size_t with_flslah = package.rfind("/");//si el paquete incluye informacion de version
 	int counpk_match = 0;
 	//std::cout << "Step 3. \n";
@@ -140,10 +143,34 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 			continue;
 		}
 		
-		//std::cout << "Step 4.2. \n";
-		if(std::string::npos != with_flver)
+		//
+		strPureName = "";
+		strPureVer= "";
+		std::regex regexcomps("-");
+		std::vector<std::string> regexoutname(
+						std::sregex_token_iterator(name.begin(), name.end(), regexcomps, -1),
+						std::sregex_token_iterator()
+						);
+		//std::cout << d << " count : " << regexoutname.size() << "\n";
+		for(int i = 0; i < regexoutname.size(); i++)
 		{
-			if(d.find(name) == 0 )
+			//std::cout << "Processing " << regexoutname[i] << "\n";
+			if(verFlag.extractNumbers(regexoutname[i]))
+			{
+				indexVer = i;
+				strPureVer = regexoutname[i];
+				break;
+			}
+			if(strPureName.size() == 0)strPureName = regexoutname[i];
+			else strPureName += "-" + regexoutname[i];
+			//std::cout << "Final pure string " << strPureName << "\n";
+		}
+		
+		//std::cout << "Step 4.2. \n";	
+		//std::cout << "Buscando " << strPureName << " en " << d << "\n";
+		if(indexVer > -1)
+		{
+			if(d.find(strPureName + "-") == 0 )
 			{
 				findedPk = true;
 				pkname = d;
@@ -182,7 +209,8 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	}
 
 	std::string verpk;
-	if(std::string::npos != with_flver) verpk = pkname.substr(with_flver + 1);
+	//if(std::string::npos != with_flver) verpk = pkname.substr(indexVer + 1);
+	if(indexVer > -1) verpk = strPureVer;
 	else verpk = pkname.substr(name.size() + 1);
 	if(!ver.extractNumbers(verpk)) 
 	{

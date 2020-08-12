@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 	if(cmdver.getop_compare())
 	{
 		octetos::core::Semver verrq,verfound;
-		if(verrq.set(argv[4]))
+		if(!verrq.set(argv[4]))
 		{
 			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";;
 		}

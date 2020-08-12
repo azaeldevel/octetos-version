@@ -26,6 +26,7 @@ namespace version
 		void help();
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver) = 0;
 		virtual bool compare(const std::string& package,const std::string& op,octetos::core::Semver& ver);
+		virtual bool compare(const std::string& package,const std::string& op,octetos::core::Semver& verrq,octetos::core::Semver& verfound);
 		bool getop_help()const;
 		bool getop_compare()const;
 		bool getop_indicators()const;

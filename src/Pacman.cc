@@ -59,8 +59,10 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 
 	if(!findedPk) return false;
 	if(counpk_match > 1) return false;
-	
-	std::string verpk = pkname.substr(package.size() + 1);
+
+	std::string verpk;
+	if(std::string::npos != with_flver) verpk = pkname.substr(with_flver + 1);
+	else verpk = pkname.substr(package.size() + 1);
 	if(!ver.extractNumbers(verpk)) return false;
 	
 	return true;

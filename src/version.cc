@@ -16,40 +16,43 @@ namespace octetos
 namespace version
 {
 
-
-bool Version::compare(const std::string& package,const std::string& op,octetos::core::Semver& ver)
+bool Version::compare(const std::string& package,const std::string& op,octetos::core::Semver& verrq,octetos::core::Semver& verfound)
 {
-	octetos::core::Semver ver1;
-	getVersion(package,ver1);
+	if(!getVersion(package,verfound)) return false;
 		
 	if(op.compare("==") == 0)
 	{
-		return (ver1==ver);
+		return (verfound==verrq);
 	}
 	else if(op.compare(">") == 0 or op.compare("g") == 0)
 	{
-		return (ver1>ver);
+		return (verfound>verrq);
 	}
 	else if(op.compare("<") == 0 or op.compare("s") == 0)
 	{
-		return (ver1<ver);
+		return (verfound<verrq);
 	}
 	else if(op.compare(">=") == 0 or op.compare("g=") == 0)
 	{
-		return (ver1>=ver);
+		return (verfound>=verrq);
 	}
 	else if(op.compare("<=") == 0 or op.compare("s=") == 0)
 	{
-		return (ver1<=ver);
+		return (verfound<=verrq);
 	}
 	else if(op.compare("!=") == 0)
 	{
-		return (ver1!=ver);
+		return (verfound!=verrq);
 	}
 	else
 	{
 		return false;
 	}
+}
+bool Version::compare(const std::string& package,const std::string& op,octetos::core::Semver& ver)
+{
+	octetos::core::Semver ver1;
+	return compare(package,op,ver,ver1);
 }
 bool Version::getop_help()const
 {
@@ -130,9 +133,6 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 					std::sregex_token_iterator()
 					);
 
-	/*for (std::string str: regexout) {
-		std::cout << str << '\n';
-	}*/
 	if(regexout.size() == 2)
 	{
 		category = regexout[0];
@@ -153,10 +153,8 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	std::string pkname;
 	for(std::string d : dirs)
 	{
-		//std::cout << "Cat : " << d << ".\n";
 		if(d.find(name + "-") == 0 )
 		{
-			//std::cout << "Cat : " << d << ".\n";
 			findedPk = true;
 			pkname = d;
 		}

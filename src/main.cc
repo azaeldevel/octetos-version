@@ -69,13 +69,16 @@ int main(int argc, char *argv[])
 	
 	if(cmdver.getop_compare())
 	{
-		octetos::core::Semver verpk;
-		verpk.set(argv[4]);
-		if(cmdver.compare(argv[2],argv[3],verpk))
+		octetos::core::Semver verrq,verfound;
+		if(verrq.set(argv[4]))
+		{
+			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";;
+		}
+		if(cmdver.compare(argv[2],argv[3],verrq,verfound))
 		{
 			if(cmdver.getop_indicators())
 			{
-				std::cout << argv[2] << " : pass\n";				
+				std::cout << argv[2] << " : pass(" << (std::string)verfound << ")\n";				
 			}
 			else
 			{

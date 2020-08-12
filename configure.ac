@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(octetos_version, 0.9.3-alpha)
+AC_INIT(octetos_version, 0.10.0-alpha)
 
 AC_CONFIG_HEADERS([config.h])
 
@@ -60,7 +60,7 @@ LT_INIT([win32-dll])
 
 
 PKG_CHECK_MODULES(OCTETOS_VERSION, [octetos-core octetos-coreutils])
-
+PKG_CHECK_MODULES(CUNIT,cunit)
 
 
 
@@ -68,4 +68,6 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 po/Makefile.in
+tests/Makefile
 ])
+

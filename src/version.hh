@@ -20,6 +20,8 @@ namespace version
 		bool op_getver;
 		bool op_warning;
 		bool op_error;
+		
+		bool jump(const std::string& directory,const std::string&  name)const;
 
 	public:
 		Version(int argc, char *argv[]);

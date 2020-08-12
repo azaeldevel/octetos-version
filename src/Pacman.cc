@@ -35,9 +35,9 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 	for(std::string d : dirs)
 	{
 		//descartar los paquetes parecido
-		char c = d[package.size()+2];
-		if(c <= 48 and c >= 57) //si no es un nmbero lo salta.
-		{
+		if(jump(d,name)) 
+		{			
+			//std::cout << "Jumping " << d << " because : " << name << "\n";
 			continue;
 		}
 		//

@@ -9,6 +9,7 @@ namespace octetos
 namespace version
 {
 
+
 bool Portage::deductCategory(const std::string& name,std::string& category)
 {
 	//std::cout << "deductCategory:Step 0.\n";
@@ -107,9 +108,14 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	
 	//std::cout << "Step 2. \n";
 	coreutils::Apishell shell;
+	if(!shell.cd(db))//primero se prueba si esta la base de datos
+	{
+		std::cerr << "no se encontro la base de datos en '" << db << "'.\n";
+		return false;
+	}
 	if(!shell.cd(db+category))	
 	{
-		std::cerr << "Fallo la lectura de la base de datos.\n";
+		std::cerr << "Se desconoce la categoria '" << category << "'.\n";
 		return false;
 	}
 	std::list<std::string> dirs;
@@ -127,14 +133,13 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	//std::cout << "Step 3. \n";
 	for(std::string d : dirs)
 	{	
-		//std::cout << "Step 4.1. \n";
-		//descartar los paquetes parecido
-		char c = d[name.size()+2];
-		if(c <= 48 and c >= 57) //si no es un nmbero lo salta.
-		{
+		//std::cout << "getVersion:Step 4.1. \n";
+		if(jump(d,name)) 
+		{			
+			//std::cout << "Jumping " << d << " because : " << name << "\n";
 			continue;
 		}
-		//		
+		
 		//std::cout << "Step 4.2. \n";
 		if(std::string::npos != with_flver)
 		{

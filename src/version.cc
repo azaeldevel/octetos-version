@@ -15,7 +15,36 @@ namespace octetos
 
 namespace version
 {
-
+bool Version::jump(const std::string& directory,const std::string& name)const
+{
+	//std::cout << "jump:Step 1.\n";
+	//std::cout << directory << " - " << name << ".\n";
+	
+	//descartar los directorio que empiezan con '.'
+	if(directory[0] == '.') return true;
+	
+	//descartar los directorio que semejantes
+	std::size_t f = directory.find(name);//revizar el el nombre del paquete esta contenido en el directorio
+	std::string strremanente;
+	if(f == 0)
+	{
+		//std::cout << "D: " << directory << " " << " C:" << directory[name.size() + 1] << " \n";
+		strremanente = directory.substr (name.size() + 1,directory.size());
+	}
+	else if (std::string::npos == f)
+	{
+		return false;
+	}
+	
+	octetos::core::Semver ver;
+	//std::cout << "R: " << strremanente << ".\n";
+	if(!ver.extractNumbers(strremanente))
+	{//el remanten es una version por lo que no se filtra
+		return true;
+	}
+	
+	return false;
+}
 bool Version::compare(const std::string& package,const std::string& op,octetos::core::Semver& verrq,octetos::core::Semver& verfound)
 {
 	if(!getVersion(package,verfound)) return false;

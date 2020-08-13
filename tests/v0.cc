@@ -125,6 +125,40 @@ void comparations()
 		}
 	}	
 
+	//test4
+#ifdef PORTAGE
+	//argv=NULL;
+	//argc=0;
+	if(writeParamschar("version -ci xz-utils g= 4.3",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
+	octetos::version::Portage cmdver_test4(argc,argv);
+#elif PACMAN
+	octetos::version::Pacman cmdver_test4(argc,argv);
+#elif APT
+#error "The backend for APT is in development"
+#endif
+	if(cmdver_test4.getop_compare())
+	{
+		octetos::core::Semver verrq,verfound;
+		if(!verrq.set(argv[4]))
+		{
+			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";;
+		}
+		if(cmdver_test4.compare(argv[2],argv[3],verrq,verfound))
+		{
+			CU_ASSERT(true);
+		}
+		else 
+		{
+			CU_ASSERT(false);
+		}
+	}	
 
 }
 
@@ -256,8 +290,6 @@ void comparations_portage()
 	char **argv=NULL;
 	int argc=0;
 
-
-//Specific >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //test2
 #ifdef PORTAGE
 	if(writeParamschar("version -ci sys-devel/make g= 2.0",&argc,&argv))
@@ -290,7 +322,41 @@ void comparations_portage()
 		{
 			CU_ASSERT(false);
 		}
-	}	
+	}
+
+//test3
+#ifdef PORTAGE
+	if(writeParamschar("version -ci app-arch/xz-utils g= 2.0",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
+	octetos::version::Portage cmdver_test3(argc,argv);
+#elif PACMAN
+	octetos::version::Pacman cmdver_test3(argc,argv);
+#elif APT
+#error "The backend for APT is in development"
+#endif
+	if(cmdver_test3.getop_compare())
+	{
+		octetos::core::Semver verrq,verfound;
+		if(!verrq.set(argv[4]))
+		{
+			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";
+		}	
+		//std::cout << "test:Step 1\n.";	
+		if(cmdver_test3.compare(argv[2],argv[3],verrq,verfound))
+		{
+			CU_ASSERT(true);
+		}
+		else 
+		{
+			CU_ASSERT(false);
+		}
+	}
 }
 
 

@@ -51,10 +51,10 @@ bool Version::jump(const std::string& directory,const std::string& name)const
 }
 bool Version::compare(const std::string& package,const std::string& op,octetos::core::Semver& verrq,octetos::core::Semver& verfound)
 {
-	std::cout << "compare:Step 1.\n";	
-	std::cout << "Pk: " << package << " Op:" << op << "\n";
+	//std::cout << "compare:Step 1.\n";	
+	//std::cout << "Pk: " << package << " Op:" << op << "\n";
 	if(!getVersion(package,verfound)) return false;
-	std::cout << "compare:Step 2.\n";
+	//std::cout << "compare:Step 2.\n";
 	
 	if(op.compare("==") == 0)
 	{
@@ -70,8 +70,8 @@ bool Version::compare(const std::string& package,const std::string& op,octetos::
 	}
 	else if(op.compare(">=") == 0 or op.compare("g=") == 0)
 	{
-		std::cout << "comparado las versiones\n";
-		std::cout << (std::string)verfound << ">=" << (std::string)verrq <<":compare\n";
+		//std::cout << "comparado las versiones\n";
+		//std::cout << (std::string)verfound << ">=" << (std::string)verrq <<":compare\n";
 		return (verfound>=verrq);
 	}
 	else if(op.compare("<=") == 0 or op.compare("s=") == 0)

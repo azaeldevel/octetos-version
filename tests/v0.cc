@@ -18,15 +18,13 @@ bool writeParamschar (const std::string& arg, int* argc, char ***argv);
 
 void comparations()
 {
-	char **argv;
-	int argc;
+	char **argv=NULL;
+	int argc=0;
 
 
 //Generic test >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//test1
 #ifdef PORTAGE
-	//argv=NULL;
-	//argc=0;
 	if(writeParamschar("version -ci make g= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -50,26 +48,10 @@ void comparations()
 		}
 		if(cmdver_test1.compare(argv[2],argv[3],verrq,verfound))
 		{
-			if(cmdver_test1.getop_indicators())
-			{
-				std::cout << argv[2] << " : pass(" << (std::string)verfound << ")\n";				
-			}
-			else
-			{
-				std::cout << "true\n";
-			}
 			CU_ASSERT(true);
 		}
 		else 
 		{
-			if(cmdver_test1.getop_indicators())
-			{
-				std::cout << argv[2] << " : reject\n";				
-			}
-			else
-			{
-				std::cout << "false\n";
-			}
 			CU_ASSERT(false);
 		}
 	}	
@@ -77,7 +59,7 @@ void comparations()
 #ifdef PORTAGE
 	//argv=NULL;
 	//argc=0;
-	if(writeParamschar("version -ci python-3 g= 2.0",&argc,&argv))
+	if(writeParamschar("version -ci python-3.7 g= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
 	}
@@ -100,26 +82,10 @@ void comparations()
 		}
 		if(cmdver_test2.compare(argv[2],argv[3],verrq,verfound))
 		{
-			if(cmdver_test2.getop_indicators())
-			{
-				std::cout << argv[2] << " : pass(" << (std::string)verfound << ")\n";				
-			}
-			else
-			{
-				std::cout << "true\n";
-			}
 			CU_ASSERT(true);
 		}
 		else 
 		{
-			if(cmdver_test2.getop_indicators())
-			{
-				std::cout << argv[2] << " : reject\n";				
-			}
-			else
-			{
-				std::cout << "false\n";
-			}
 			CU_ASSERT(false);
 		}
 	}	
@@ -151,7 +117,87 @@ void comparations()
 		}
 		if(cmdver_test3.compare(argv[2],argv[3],verrq,verfound))
 		{
-			if(cmdver_test3.getop_indicators())
+			CU_ASSERT(true);
+		}
+		else 
+		{
+			CU_ASSERT(false);
+		}
+	}	
+
+
+}
+
+
+void comparations_negatives()
+{
+	char **argv=NULL;
+	int argc=0;
+
+
+//Generic test >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	//test1
+#ifdef PORTAGE
+	//argv=NULL;
+	//argc=0;
+	if(writeParamschar("version -ci make s= 2.0",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
+	octetos::version::Portage cmdver_test1(argc,argv);
+#elif PACMAN
+	octetos::version::Pacman cmdver_test1(argc,argv);
+#elif APT
+#error "The backend for APT is in development"
+#endif
+	if(cmdver_test1.getop_compare())
+	{
+		octetos::core::Semver verrq,verfound;
+		if(!verrq.set(argv[4]))
+		{
+			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";;
+		}
+		if(cmdver_test1.compare(argv[2],argv[3],verrq,verfound))
+		{
+			CU_ASSERT(false);
+		}
+		else 
+		{
+			CU_ASSERT(true);
+		}
+	}	
+//test2
+#ifdef PORTAGE
+	//argv=NULL;
+	//argc=0;
+	if(writeParamschar("version -ci python-3.7 s= 2.0",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
+	octetos::version::Portage cmdver_test2(argc,argv);
+#elif PACMAN
+	octetos::version::Pacman cmdver_test2(argc,argv);
+#elif APT
+#error "The backend for APT is in development"
+#endif
+	if(cmdver_test2.getop_compare())
+	{
+		octetos::core::Semver verrq,verfound;
+		if(!verrq.set(argv[4]))
+		{
+			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";;
+		}
+		if(cmdver_test2.compare(argv[2],argv[3],verrq,verfound))
+		{
+			if(cmdver_test2.getop_indicators())
 			{
 				std::cout << argv[2] << " : pass(" << (std::string)verfound << ")\n";				
 			}
@@ -159,19 +205,46 @@ void comparations()
 			{
 				std::cout << "true\n";
 			}
-			CU_ASSERT(true);
+			CU_ASSERT(false);
 		}
 		else 
 		{
-			if(cmdver_test3.getop_indicators())
-			{
-				std::cout << argv[2] << " : reject\n";				
-			}
-			else
-			{
-				std::cout << "false\n";
-			}
+			CU_ASSERT(true);
+		}
+	}	
+
+//test3
+#ifdef PORTAGE
+	//argv=NULL;
+	//argc=0;
+	if(writeParamschar("version -ci gcc-9.2 s= 8.1",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
+	octetos::version::Portage cmdver_test3(argc,argv);
+#elif PACMAN
+	octetos::version::Pacman cmdver_test3(argc,argv);
+#elif APT
+#error "The backend for APT is in development"
+#endif
+	if(cmdver_test3.getop_compare())
+	{
+		octetos::core::Semver verrq,verfound;
+		if(!verrq.set(argv[4]))
+		{
+			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";;
+		}
+		if(cmdver_test3.compare(argv[2],argv[3],verrq,verfound))
+		{
 			CU_ASSERT(false);
+		}
+		else 
+		{
+			CU_ASSERT(true);
 		}
 	}	
 
@@ -180,15 +253,13 @@ void comparations()
 
 void comparations_portage()
 {
-	char **argv;
-	int argc;
+	char **argv=NULL;
+	int argc=0;
 
 
 //Specific >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //test2
 #ifdef PORTAGE
-	//argv=NULL;
-	//argc=0;
 	if(writeParamschar("version -ci sys-devel/make g= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -210,30 +281,13 @@ void comparations_portage()
 		{
 			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";
 		}	
-		std::cout << "test:Step 1\n.";	
+		//std::cout << "test:Step 1\n.";	
 		if(cmdver_test2.compare(argv[2],argv[3],verrq,verfound))
 		{
-			std::cout << "test:Step 1.1\n.";
-			if(cmdver_test2.getop_indicators())
-			{
-				std::cout << argv[2] << " : pass(" << (std::string)verfound << ")\n";				
-			}
-			else
-			{
-				std::cout << "true\n";
-			}
 			CU_ASSERT(true);
 		}
 		else 
 		{
-			if(cmdver_test2.getop_indicators())
-			{
-				std::cout << argv[2] << " : reject\n";				
-			}
-			else
-			{
-				std::cout << "false\n";
-			}
 			CU_ASSERT(false);
 		}
 	}	
@@ -251,20 +305,21 @@ bool writeParamschar (const std::string& arg, int* argc, char ***argv)
 		std::sregex_token_iterator()
 	);
 	
-	/*if(argv[0] != NULL)
+	if(argv[0] != NULL)
 	{
-		for(int i = 0; i < regexout.size() - 1; i++)
+		for(int i = 0; i < regexout.size()-1; i++)
 		{
 			free(argv[0][i]);
 		}
-	}*/
+		argv[0] = NULL;
+	}
 	
 	argv[0] = (char**)malloc(sizeof(char*)*(regexout.size()+1));
 	std::vector<std::string>::iterator it = regexout.begin();
 	for(int i = 0; i < regexout.size(); i++,it++)
 	{
 		argv[0][i] = (char*)malloc(strlen(it->c_str())+1);
-		//strcpy((*argv)[i],it->c_str());
+		strcpy((*argv)[i],it->c_str());
 	}
 	//argv[0][regexout.size()] = NULL;
 
@@ -321,6 +376,11 @@ int main(int argc, char *argv[])
 		CU_cleanup_registry();
 		return CU_get_error();
 	}	
+	if ((NULL == CU_add_test(pSuite, "Comparing with generic names negativas.", comparations_negatives)))
+	{
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
 	if ((NULL == CU_add_test(pSuite, "Comparing with portage names", comparations_portage)))
 	{
 		CU_cleanup_registry();

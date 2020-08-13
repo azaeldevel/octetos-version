@@ -168,11 +168,11 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		}
 		
 		//std::cout << "Step 4.2. \n";	
-		//std::cout << "Buscando " << strPureName << " en " << d << "\n";
-		if(indexVer > -1)
+		if(indexVer > -1)//si se especifica version en el nombre de paquete
 		{
-			if(d.find(strPureName + "-") == 0 )
+			if(d.find(strPureName + "-" + strPureVer) == 0 )
 			{
+				//std::cout << " Macth " << d << " \n";
 				findedPk = true;
 				pkname = d;
 				counpk_match++;
@@ -196,10 +196,10 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		std::cerr << "Paquete no encontrado, puede deverse a que no existe o no esta instalado.\n";
 		return false;
 	}
-	std::cout << "Step 6. \n";
+	//std::cout << "Step 6. \n";
 	if(counpk_match > 1) 
 	{
-		std::cerr << "Nombre ambiguo, agrege informacion de version si hay puede haber diferentes version del mismmo paquete.\n";
+		std::cerr << "Nombre ambiguo, agrege informacion de version si puede haber diferentes version del mismmo paquete.\n";
 		for(std::string d : dirs)
 		{
 			if(d.find(name + "-" ) == 0 )
@@ -209,7 +209,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		}
 		return false;
 	}
-	std::cout << "Step 7. \n";
+	//std::cout << "Step 7. \n";
 
 	std::string verpk;
 	if(indexVer > -1) 
@@ -220,13 +220,13 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	{
 		verpk = pkname.substr(name.size() + 1);
 	}
-	std::cout << "version found : " << verpk << ".\n";
+	//std::cout << "version found : " << verpk << ".\n";
 	if(!ver.extractNumbers(verpk)) 
 	{
 		std::cerr << "Fallo al parsear la version '" << verpk << "'.\n";
 		return false;
 	}
-	std::cout << "Step 8. \n";
+	//std::cout << "Step 8. \n";
 	
 	return true;
 }

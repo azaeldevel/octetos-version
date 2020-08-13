@@ -111,6 +111,8 @@ Version::Version(int argc, char *argv[])
 	op_getver = false;
 	op_warning = false;
 	op_error = false;
+	op_platform = false;
+
 	
 	std::string ops = argv[1];
 
@@ -140,7 +142,15 @@ Version::Version(int argc, char *argv[])
 		{
 			op_error = true;
 		}
+		else if(c == 'p')
+		{
+			op_platform = true;
+		}
 	}
+}
+bool Version::getop_platform()const
+{
+	return op_platform;
 }
 bool Version::getop_compare()const
 {

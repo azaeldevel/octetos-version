@@ -9,7 +9,10 @@ namespace octetos
 namespace version
 {
 
-
+Version::Platform Portage::getPlatform()const
+{
+	return Version::Platform::Portage;
+}
 bool Portage::deductCategory(const std::string& name,std::string& category)
 {
 	//std::cout << "deductCategory:Step 0.\n";

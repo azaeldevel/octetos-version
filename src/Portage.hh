@@ -15,6 +15,7 @@ namespace version
 	public:
 		Portage(int argc, char *argv[]);
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver);
+		virtual Version::Platform getPlatform()const;
 	}; 
 
 }

@@ -51,8 +51,27 @@ int main(int argc, char *argv[])
 		cmdver.help();
 		return EXIT_SUCCESS;
 	}
+
+	//
+	if(cmdver.getop_platform())
+	{
+		switch(cmdver.getPlatform())
+		{
+			case octetos::version::Version::Platform::Portage:
+				std::cout << "Portage\n";
+				break;
+			case octetos::version::Version::Platform::Pacman:
+				std::cout << "Pacman\n";
+				break;
+			default:
+				std::cout << "Desconocido\n";
+				return EXIT_FAILURE;
+		}
+
+		return EXIT_SUCCESS;
+	}
 	
-	//>>>>>>>>>>>>>>>>>>>>>portage operation
+	//>>>>>>>>>>>>>>>>>>>>>operation
 	if(cmdver.getop_version())
 	{
 		octetos::core::Semver verpk;

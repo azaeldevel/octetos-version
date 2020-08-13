@@ -35,6 +35,14 @@ void comparations()
 	}
 	octetos::version::Portage cmdver_test1(argc,argv);
 #elif PACMAN
+	if(writeParamschar("version -ci make g= 2.0",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
 	octetos::version::Pacman cmdver_test1(argc,argv);
 #elif APT
 #error "The backend for APT is in development"
@@ -57,8 +65,6 @@ void comparations()
 	}	
 //test2
 #ifdef PORTAGE
-	//argv=NULL;
-	//argc=0;
 	if(writeParamschar("version -ci python-3.7 g= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -69,6 +75,14 @@ void comparations()
 	}
 	octetos::version::Portage cmdver_test2(argc,argv);
 #elif PACMAN
+	if(writeParamschar("version -ci python g= 2.7",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
 	octetos::version::Pacman cmdver_test2(argc,argv);
 #elif APT
 #error "The backend for APT is in development"
@@ -92,8 +106,6 @@ void comparations()
 
 //test3
 #ifdef PORTAGE
-	//argv=NULL;
-	//argc=0;
 	if(writeParamschar("version -ci gcc-9.2 g= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -104,6 +116,14 @@ void comparations()
 	}
 	octetos::version::Portage cmdver_test3(argc,argv);
 #elif PACMAN
+	if(writeParamschar("version -ci gcc g= 8.1",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
 	octetos::version::Pacman cmdver_test3(argc,argv);
 #elif APT
 #error "The backend for APT is in development"
@@ -127,8 +147,6 @@ void comparations()
 
 	//test4
 #ifdef PORTAGE
-	//argv=NULL;
-	//argc=0;
 	if(writeParamschar("version -ci xz-utils g= 4.3",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -139,6 +157,14 @@ void comparations()
 	}
 	octetos::version::Portage cmdver_test4(argc,argv);
 #elif PACMAN
+	if(writeParamschar("version -ci xz g= 4.3",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
 	octetos::version::Pacman cmdver_test4(argc,argv);
 #elif APT
 #error "The backend for APT is in development"
@@ -160,6 +186,46 @@ void comparations()
 		}
 	}	
 
+	//test5
+#ifdef PORTAGE
+	if(writeParamschar("version -ci sys-devel/bison g= 3.0",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
+	octetos::version::Portage cmdver_test5(argc,argv);
+#elif PACMAN
+	if(writeParamschar("version -ci bison g= 3.0",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
+	octetos::version::Pacman cmdver_test5(argc,argv);
+#elif APT
+#error "The backend for APT is in development"
+#endif
+	if(cmdver_test5.getop_compare())
+	{
+		octetos::core::Semver verrq,verfound;
+		if(!verrq.set(argv[4]))
+		{
+			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";;
+		}
+		if(cmdver_test5.compare(argv[2],argv[3],verrq,verfound))
+		{
+			CU_ASSERT(true);
+		}
+		else 
+		{
+			CU_ASSERT(false);
+		}
+	}
 }
 
 
@@ -172,8 +238,6 @@ void comparations_negatives()
 //Generic test >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//test1
 #ifdef PORTAGE
-	//argv=NULL;
-	//argc=0;
 	if(writeParamschar("version -ci make s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -184,6 +248,14 @@ void comparations_negatives()
 	}
 	octetos::version::Portage cmdver_test1(argc,argv);
 #elif PACMAN
+	if(writeParamschar("version -ci make s= 2.0",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
 	octetos::version::Pacman cmdver_test1(argc,argv);
 #elif APT
 #error "The backend for APT is in development"
@@ -206,8 +278,6 @@ void comparations_negatives()
 	}	
 //test2
 #ifdef PORTAGE
-	//argv=NULL;
-	//argc=0;
 	if(writeParamschar("version -ci python-3.7 s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -218,6 +288,14 @@ void comparations_negatives()
 	}
 	octetos::version::Portage cmdver_test2(argc,argv);
 #elif PACMAN
+	if(writeParamschar("version -ci python s= 2.0",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
 	octetos::version::Pacman cmdver_test2(argc,argv);
 #elif APT
 #error "The backend for APT is in development"
@@ -249,8 +327,6 @@ void comparations_negatives()
 
 //test3
 #ifdef PORTAGE
-	//argv=NULL;
-	//argc=0;
 	if(writeParamschar("version -ci gcc-9.2 s= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -261,6 +337,14 @@ void comparations_negatives()
 	}
 	octetos::version::Portage cmdver_test3(argc,argv);
 #elif PACMAN
+	if(writeParamschar("version -ci gcc s= 8.1",&argc,&argv))
+	{
+		CU_ASSERT(true);
+	}
+	else
+	{
+		CU_ASSERT(false);
+	}
 	octetos::version::Pacman cmdver_test3(argc,argv);
 #elif APT
 #error "The backend for APT is in development"
@@ -285,79 +369,6 @@ void comparations_negatives()
 
 }
 
-void comparations_portage()
-{
-	char **argv=NULL;
-	int argc=0;
-
-//test2
-#ifdef PORTAGE
-	if(writeParamschar("version -ci sys-devel/make g= 2.0",&argc,&argv))
-	{
-		CU_ASSERT(true);
-	}
-	else
-	{
-		CU_ASSERT(false);
-	}
-	octetos::version::Portage cmdver_test2(argc,argv);
-#elif PACMAN
-	octetos::version::Pacman cmdver_test2(argc,argv);
-#elif APT
-#error "The backend for APT is in development"
-#endif
-	if(cmdver_test2.getop_compare())
-	{
-		octetos::core::Semver verrq,verfound;
-		if(!verrq.set(argv[4]))
-		{
-			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";
-		}	
-		//std::cout << "test:Step 1\n.";	
-		if(cmdver_test2.compare(argv[2],argv[3],verrq,verfound))
-		{
-			CU_ASSERT(true);
-		}
-		else 
-		{
-			CU_ASSERT(false);
-		}
-	}
-
-//test3
-#ifdef PORTAGE
-	if(writeParamschar("version -ci app-arch/xz-utils g= 2.0",&argc,&argv))
-	{
-		CU_ASSERT(true);
-	}
-	else
-	{
-		CU_ASSERT(false);
-	}
-	octetos::version::Portage cmdver_test3(argc,argv);
-#elif PACMAN
-	octetos::version::Pacman cmdver_test3(argc,argv);
-#elif APT
-#error "The backend for APT is in development"
-#endif
-	if(cmdver_test3.getop_compare())
-	{
-		octetos::core::Semver verrq,verfound;
-		if(!verrq.set(argv[4]))
-		{
-			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";
-		}	
-		//std::cout << "test:Step 1\n.";	
-		if(cmdver_test3.compare(argv[2],argv[3],verrq,verfound))
-		{
-			CU_ASSERT(true);
-		}
-		else 
-		{
-			CU_ASSERT(false);
-		}
-	}
-}
 
 
 
@@ -437,22 +448,16 @@ int main(int argc, char *argv[])
 		return CU_get_error();
 	}
 	
-	if ((NULL == CU_add_test(pSuite, "Comparing with generic names.", comparations)))
+	if ((NULL == CU_add_test(pSuite, "Comparaciones genericas", comparations)))
 	{
 		CU_cleanup_registry();
 		return CU_get_error();
 	}	
-	if ((NULL == CU_add_test(pSuite, "Comparing with generic names negativas.", comparations_negatives)))
+	if ((NULL == CU_add_test(pSuite, "Comparaciones genericas negaticas", comparations_negatives)))
 	{
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-	if ((NULL == CU_add_test(pSuite, "Comparing with portage names", comparations_portage)))
-	{
-		CU_cleanup_registry();
-		return CU_get_error();
-	}
-
 	
 	/* Run all tests using the CUnit Basic interface */
 	CU_basic_set_mode(CU_BRM_VERBOSE);

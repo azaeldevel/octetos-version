@@ -1,2 +1,19 @@
+2020-08-12 Azael Reyes <azael.devel@gmail.com>
+version : 0.12.0
+	- Mensajes de usuario en español
+	- Correciones de codificacion adelantada para pacman.
+		Se agregan pruebas para pacman.
 
-
+2020-08-11 Azael Reyes <azael.devel@gmail.com>
+Considerese este registro como un resumen de los cambios hechas hasta 
+la version 0.11.0.
+	- Soporte para Portage
+		-	Aceptar nombre de paquete incompleto
+	- Soporte para Pacman
+	- Opción de Ayuda
+	- Opción de version de apquete
+	- Opción de Plataforma
+	- Inclución de pruebas
+	- Acceptar operadores s(smal than) y g(grater than)
+		Ya que bash usa los simbolos > y < como operadores de flujo, version
+		agrega s y g en su lugar.

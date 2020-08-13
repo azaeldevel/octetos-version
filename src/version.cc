@@ -22,6 +22,7 @@ bool Version::jump(const std::string& directory,const std::string& name)const
 	
 	//descartar los directorio que empiezan con '.'
 	if(directory[0] == '.') return true;
+	//std::cout << "jump:Step 2\n";
 	
 	//descartar los directorio que semejantes
 	std::size_t f = directory.find(name);//revizar el el nombre del paquete esta contenido en el directorio
@@ -39,6 +40,12 @@ bool Version::jump(const std::string& directory,const std::string& name)const
 	{
 		return false;
 	}
+	char c = directory[name.size() + 1];
+	if( c <= '0' or c >= '9')
+	{
+		return true;
+	}
+	//std::cout << "jump:Step 3\n";
 	
 	octetos::core::Semver ver;
 	//std::cout << "R: " << strremanente << ".\n";
@@ -46,6 +53,7 @@ bool Version::jump(const std::string& directory,const std::string& name)const
 	{//el remanten es una version por lo que no se filtra
 		return true;
 	}
+	//std::cout << "jump:Step 4\n";
 	
 	return false;
 }
@@ -98,10 +106,10 @@ bool Version::getop_help()const
 }
 void Version::help()
 {
-	std::cout << "version options parameters.			Generic format.\n";
-	std::cout << "version -h.							For help.\n";
-	std::cout << "version -g packagename				To get version form package.\n";
-	std::cout << "version -c|-ci packagename operator version.			Compare package with version.\n";
+	std::cout << "version opciones parámetros.			Formato genérico.\n";
+	std::cout << "version -h.							Ayuda, para desplegar este opctió.\n";
+	std::cout << "version -g nombredepaquete.			Para optener la version del paquete.\n";
+	std::cout << "version -c|-ci nombredepaquete (==|s=|g=|s|g) version.			Comparar la version del paquete con la indicada en el ultimo parametro.\n";
 }
 Version::Version(int argc, char *argv[])
 {

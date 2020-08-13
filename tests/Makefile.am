@@ -12,6 +12,9 @@ AM_CFLAGS =\
 
 noinst_PROGRAMS = v0
 
+if WITH_PORTAGE
+v0_CPPFLAGS = -DPORTAGE
+endif
 v0_LDADD = $(CUNIT_LIBS) $(OCTETOS_VERSION_LIBS)
 v0_CXXFLAGS = -I$(top_srcdir)/src
 v0_SOURCES = v0.cc $(top_srcdir)/src/version.cc $(top_srcdir)/src/Portage.cc

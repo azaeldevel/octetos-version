@@ -84,7 +84,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		category = regexout[0];
 		name = regexout[1];
 	}
-	else if(regexout.size() == 1)
+	else if(regexout.size() < 2)
 	{
 		//std::cout << "getVersion:Step 1.1.\n";
 		name = package;
@@ -113,6 +113,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		std::cerr << "no se encontro la base de datos en '" << db << "'.\n";
 		return false;
 	}
+	//std::cout << "categoria '" << category << "'.\n";
 	if(!shell.cd(db+category))	
 	{
 		std::cerr << "Se desconoce la categoria '" << category << "'.\n";
@@ -195,6 +196,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		std::cerr << "Paquete no encontrado, puede deverse a que no existe o no esta instalado.\n";
 		return false;
 	}
+	std::cout << "Step 6. \n";
 	if(counpk_match > 1) 
 	{
 		std::cerr << "Nombre ambiguo, agrege informacion de version si hay puede haber diferentes version del mismmo paquete.\n";
@@ -207,16 +209,24 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		}
 		return false;
 	}
+	std::cout << "Step 7. \n";
 
 	std::string verpk;
-	//if(std::string::npos != with_flver) verpk = pkname.substr(indexVer + 1);
-	if(indexVer > -1) verpk = strPureVer;
-	else verpk = pkname.substr(name.size() + 1);
+	if(indexVer > -1) 
+	{
+		verpk = strPureVer;
+	}
+	else 
+	{
+		verpk = pkname.substr(name.size() + 1);
+	}
+	std::cout << "version found : " << verpk << ".\n";
 	if(!ver.extractNumbers(verpk)) 
 	{
 		std::cerr << "Fallo al parsear la version '" << verpk << "'.\n";
 		return false;
 	}
+	std::cout << "Step 8. \n";
 	
 	return true;
 }

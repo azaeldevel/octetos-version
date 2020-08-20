@@ -23,7 +23,7 @@ bool Portage::deductCategory(const std::string& name,std::string& category)
 	
 	if(!shell.cd(db))	
 	{
-		std::cerr << "Fallo la lectura de la base de datos.\n";
+		std::cerr << "No se encontro la base de datos.\n";
 		return false;
 	}
 	//std::cout << "deductCategory:Step 1. \n";
@@ -46,7 +46,7 @@ bool Portage::deductCategory(const std::string& name,std::string& category)
 		//std::cout << db+cats << ".\n";
 		if(!shell2.cd(db+cat+"/"))
 		{
-			std::cerr << "Fallo la lectura de la base de datos.\n";
+			std::cerr << "No se encontro la base de datos.\n";
 			return false;
 		}	
 		//std::cout << "deductCategory:Step 2.1. \n";
@@ -113,7 +113,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	coreutils::Apishell shell;
 	if(!shell.cd(db))//primero se prueba si esta la base de datos
 	{
-		std::cerr << "no se encontro la base de datos en '" << db << "'.\n";
+		std::cerr << "No se encontro la base de datos en '" << db << "'.\n";
 		return false;
 	}
 	//std::cout << "categoria '" << category << "'.\n";

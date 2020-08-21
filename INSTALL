@@ -29,7 +29,7 @@ Gentoo based metode
 ===================
 	You can install la guru repository then just installl the pakage like any oter pacakge.
 	sudo layman -a guru        
-    emerge -a app-portage/octetos-version
+    emerge -a app-portage/version
 
 Arch Linux base metode
 ======================

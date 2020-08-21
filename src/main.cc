@@ -33,7 +33,6 @@
 
 int main(int argc, char *argv[])
 {
-	
 #if PORTAGE
 	octetos::version::Portage cmdver(argc,argv);
 #endif
@@ -44,12 +43,17 @@ int main(int argc, char *argv[])
 #error "The backend for APT is in development"
 #endif
 
+
 	//>>>>>>>>>>>>>>>>>>>>>generic operations	
-	if(cmdver.getop_help())
+	if(cmdver.getop_help() or cmdver.get_autohelp())
 	{
-		if(argc > 2)
+		if(argc == 1)
 		{
-			std::cerr << "Ambiguos parameters, help can have more options.\n";
+			std::cout << "Es necesario especificar una opción.\n";
+		}
+		else if(argc > 2)
+		{
+			std::cerr << "Opciones ambiguas, la opción ayuda no puede mesclarse con otras opciones.\n";
 			return EXIT_FAILURE;
 		}
 		cmdver.help();

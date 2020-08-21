@@ -15,6 +15,12 @@ namespace octetos
 
 namespace version
 {
+
+bool Version::get_autohelp()const
+{
+	return autohelp;
+}
+
 bool Version::jump(const std::string& directory,const std::string& name)const
 {
 	//std::cout << "jump:Step 1.\n";
@@ -106,13 +112,14 @@ bool Version::getop_help()const
 }
 void Version::help()
 {
-	std::cout << "version opciones parámetros.			Formato genérico.\n";
-	std::cout << "version -h.							Ayuda, para desplegar este opctió.\n";
-	std::cout << "version -g nombredepaquete.			Para optener la version del paquete.\n";
-	std::cout << "version -c|-ci nombredepaquete (==|s=|g=|s|g) version.			Comparar la version del paquete con la indicada en el ultimo parametro.\n";
+	std::cout << "version opciones parámetros.     Formato genérico.\n";
+	std::cout << "version -h.                      Ayuda, para desplegar este opctión.\n";
+	std::cout << "version -g nombredepaquete.      Para optener la version del paquete.\n";
+	std::cout << "version -c|-ci nombredepaquete (==|s=|g=|s|g) version.\n                                 Comparar la version del paquete con la \n                                 indicada en el ultimo parametro.\n";
+	std::cout << "version -p.                      Retorna informacion sobre la plataforma.\n";
 }
 Version::Version(int argc, char *argv[])
-{
+{	
 	op_help = false;
 	op_compare = false;
 	op_indicators = false;
@@ -120,7 +127,13 @@ Version::Version(int argc, char *argv[])
 	op_warning = false;
 	op_error = false;
 	op_platform = false;
-
+	autohelp = false;
+	
+	if(argc == 1) 
+	{
+		autohelp = true;
+		return;
+	}
 	
 	std::string ops = argv[1];
 

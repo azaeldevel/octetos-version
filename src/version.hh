@@ -21,6 +21,7 @@ namespace version
 		bool op_warning;
 		bool op_error;
 		bool op_platform;
+		bool autohelp;
 		
 		bool jump(const std::string& directory,const std::string&  name)const;
 
@@ -42,6 +43,7 @@ namespace version
 		bool getop_indicators()const;
 		bool getop_version()const;
 		bool getop_platform()const;
+		bool get_autohelp()const;
 	};
 	
 

@@ -45,6 +45,11 @@ case $host_os in
     native_win32=no
     ;;
 esac
+
+
+
+PKG_CHECK_MODULES(OCTETOS_VERSION, [octetos-core octetos-coreutils])
+
 AM_CONDITIONAL(PLATFORM_WIN32, test x"$platform_win32" = "xyes")
 AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
@@ -59,7 +64,6 @@ AC_ARG_WITH([pacman], AS_HELP_STRING([--with-pacman], [Activando soporte para pa
 LT_INIT([win32-dll])
 
 
-PKG_CHECK_MODULES(OCTETOS_VERSION, [octetos-core octetos-coreutils])
 PKG_CHECK_MODULES(CUNIT,cunit)
 
 

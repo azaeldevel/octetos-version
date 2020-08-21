@@ -9,7 +9,39 @@ are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.  This file is offered as-is,
 without warranty of any kind.
 
-Basic Installation
+
+INSTALATION INSTRUCTIONS.
+========================
+
+Dependencies
+============
+Firts you need install all dependencies
+    octetos-core        download it from https://github.com/azaeldevel/octetos-core.git
+    octetos-coreutils   download it from https://github.com/azaeldevel/octetos-coreutils.git
+    CUnit               if you need testing.
+
+octetos-version could by instaled y three diferents way:
+	1.- Gentoo based metode
+	2.- Arch Linux base metode.
+	3.- Source base metode.
+
+Gentoo based metode
+===================
+	You can install la guru repository then just installl the pakage like any oter pacakge.
+	sudo layman -a guru        
+    emerge -a app-portage/octetos-version
+
+Arch Linux base metode
+======================
+	You can build octetos-version from AUR repository, a posble way is:
+	cd ~
+    mkdir aur-octetos
+    cd aur-octetos        
+	git clone https://aur.archlinux.org/octetos-version.git
+    cd octetos-version
+    makepkg -si
+    
+Source base metode
 ==================
 
    Briefly, the shell command './configure && make && make install'

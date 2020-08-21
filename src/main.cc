@@ -21,22 +21,26 @@
 #include <string.h>
 
 
-#ifdef PORTAGE
+#if PORTAGE
 	#include "Portage.hh"
-#elif PACMAN
+#endif
+#if PACMAN
 	#include "Pacman.hh"
-#elif APT
+#endif
+#if APT
 #error "The backend for APT is in development"
 #endif
 
 int main(int argc, char *argv[])
 {
 	
-#ifdef PORTAGE
+#if PORTAGE
 	octetos::version::Portage cmdver(argc,argv);
-#elif PACMAN
+#endif
+#if PACMAN
 	octetos::version::Pacman cmdver(argc,argv);
-#elif APT
+#endif
+#if APT
 #error "The backend for APT is in development"
 #endif
 

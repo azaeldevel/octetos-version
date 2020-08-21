@@ -8,10 +8,11 @@ AM_CPPFLAGS = \
 
 AM_CFLAGS =\
 	 -Wall\
-	 -g
+	 -g 
 
 bin_PROGRAMS = version
 
+version_CFLAGS =-I$(OCTETOS_VERSION_CFLAGS)
 version_SOURCES = \
 	main.cc \
 	version.cc
@@ -21,12 +22,7 @@ endif
 if WITH_PACMAN
 version_SOURCES += Pacman.cc
 endif
-
-
-version_LDFLAGS = 
-
-
-
+version_LDFLAGS =
 version_LDADD = $(OCTETOS_VERSION_LIBS)
 
 

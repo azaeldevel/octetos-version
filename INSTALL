@@ -37,8 +37,8 @@ Arch Linux base metode
 	cd ~
     mkdir aur-octetos
     cd aur-octetos        
-	git clone https://aur.archlinux.org/octetos-version.git
-    cd octetos-version
+	git clone https://aur.archlinux.org/version.git
+    cd version
     makepkg -si
     
 Source base metode

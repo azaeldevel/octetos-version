@@ -12,10 +12,17 @@
 
 namespace octetos
 {
-
 namespace version
 {
 
+	bool Version::get_unknowOption() const
+	{
+		return unknowOption;
+	}
+	const std::string& Version::getmsg_unknowOption()const
+	{
+		return msgUnknowOption;
+	}
 bool Version::get_autohelp()const
 {
 	return autohelp;
@@ -116,11 +123,11 @@ bool Version::getop_help()const
 }
 void Version::help()
 {
-	std::cout << "version opciones parámetros.     Formato genérico.\n";
-	std::cout << "version -h.                      Ayuda, para desplegar este opctión.\n";
-	std::cout << "version -g nombredepaquete.      Para optener la version del paquete.\n";
-	std::cout << "version -c|-ci nombredepaquete (==|s=|g=|s|g) version.\n                                 Comparar la version del paquete con la \n                                 indicada en el ultimo parametro.\n";
-	std::cout << "version -p.                      Retorna informacion sobre la plataforma.\n";
+	std::cout << "version opciones parámetros     Formato genérico.\n";
+	std::cout << "version -h                      Ayuda, para desplegar este opctión.\n";
+	std::cout << "version -g nombredepaquete      Para optener la version del paquete.\n";
+	std::cout << "version -c|-ci nombredepaquete (==|s=|g=|s|g) version\n                                 Comparar la version del paquete con la \n                                 indicada en el ultimo parametro.\n";
+	std::cout << "version -p                      Retorna informacion sobre la plataforma.\n";
 }
 Version::Version(int argc, char *argv[])
 {	
@@ -132,18 +139,24 @@ Version::Version(int argc, char *argv[])
 	op_error = false;
 	op_platform = false;
 	autohelp = false;
+	unknowOption = false;
+	msgUnknowOption = "";
 	
 	if(argc == 1) 
 	{
 		autohelp = true;
-		return;
+		return;//no es necesario parsear las opciones ya que no hay.
 	}
 	
 	std::string ops = argv[1];
 
 	for(char c : ops)
 	{		
-		if(c == 'h')
+		if(c == '-')
+		{
+			
+		}
+		else if(c == 'h')
 		{
 			op_help = true;
 		}
@@ -170,6 +183,18 @@ Version::Version(int argc, char *argv[])
 		else if(c == 'p')
 		{
 			op_platform = true;
+		}
+		else
+		{
+			unknowOption = true;
+			if(msgUnknowOption.empty()) 
+			{
+				msgUnknowOption += "Opción '" + std::string(1,c) + "' es desconocida.";
+			}
+			else 
+			{
+				msgUnknowOption += "\nOpción '" + std::string(1,c) + "' es desconocida.";
+			}
 		}
 	}
 }

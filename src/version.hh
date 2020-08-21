@@ -11,9 +11,7 @@ namespace version
 {
 	class Version
 	{
-	protected:
-		std::string db;
-
+	private:
 		bool op_help;
 		bool op_compare;//activa la operacion de coparacion
 		bool op_indicators;//activa las opciones de visualizacion mas adecuado para hacer comprensible el texto
@@ -22,6 +20,10 @@ namespace version
 		bool op_error;
 		bool op_platform;
 		bool autohelp;
+		bool unknowOption;
+		std::string msgUnknowOption;
+
+	protected:
 		
 		bool jump(const std::string& directory,const std::string&  name)const;
 
@@ -44,6 +46,9 @@ namespace version
 		bool getop_version()const;
 		bool getop_platform()const;
 		bool get_autohelp()const;
+
+		bool get_unknowOption() const;
+		const std::string& getmsg_unknowOption()const;
 	};
 	
 

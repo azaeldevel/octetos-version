@@ -1,4 +1,9 @@
 2020-08-21 Azael Reyes <azael.devel@gmail.com>
+version 0.14.0
+	- Detectar parámteros desconocidos.
+
+
+2020-08-21 Azael Reyes <azael.devel@gmail.com>
 version 0.13.1
 	- Correción de no paramatros pasados.
 	- Correcion de paquetes con guion en el nombre(Pacman).

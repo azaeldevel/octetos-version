@@ -42,7 +42,10 @@ int main(int argc, char *argv[])
 #if APT
 #error "The backend for APT is in development"
 #endif
-
+	if(cmdver.get_unknowOption())
+	{
+		std::cout << cmdver.getmsg_unknowOption() << "\n";
+	}
 
 	//>>>>>>>>>>>>>>>>>>>>>generic operations	
 	if(cmdver.getop_help() or cmdver.get_autohelp())

@@ -11,6 +11,7 @@ namespace version
 	class Pacman : public Version
 	{
 	private:
+		std::string db;
 		
 	public:
 		Pacman(int argc, char *argv[]);

@@ -11,6 +11,8 @@ namespace version
 	class Portage : public Version
 	{
 	private:
+		std::string db;
+
 		bool deductCategory(const std::string& package,std::string& cantegory);
 	public:
 		Portage(int argc, char *argv[]);

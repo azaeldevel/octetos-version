@@ -36,6 +36,7 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 
 	std::string verpk;
 	bool findedPk = false;
+	bool findedVers = false;
 	std::string pkname,pureName;
 	//std::size_t with_flver = 0;
 	std::regex regex("-");
@@ -43,23 +44,13 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 					std::sregex_token_iterator(package.begin(), package.end(), regex, -1),
 					std::sregex_token_iterator()
 					);
-	if(regexout.size() > 0) 
+	if(regexout.size() > 1) 
 	{
-		verpk = regexout[regexout.size()-1];
+		verpk = regexout[regexout.size()-1];//el último valor
 		octetos::core::Semver vercheck;
 		if(vercheck.extractNumbers(verpk))
 		{//tiene version
-			for(int i = 0; i < regexout.size() - 2 ; i++)
-			{
-				pureName += regexout[i];
-			}
-		}
-		else
-		{
-			for(int i = 0; i < regexout.size() - 1 ; i++)
-			{
-				pureName += regexout[i];
-			}
+			findedVers = true;
 		}
 	}
 	int counpk_match = 0;
@@ -74,7 +65,7 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 			continue;
 		}
 		//std::cout << "getVersion:Step 3.2\n";
-		if(regexout.size() > 0)
+		if(regexout.size() > 0 and findedVers)
 		{
 			if(d.find(package) == 0 )
 			{

@@ -58,7 +58,7 @@ bool Version::jump(const std::string& directory,const std::string& name)const
 		return false;
 	}
 	char c = directory[name.size() + 1];
-	if( c <= '0' or c >= '9')
+	if( c < '0' or c > '9')
 	{
 		return true;
 	}

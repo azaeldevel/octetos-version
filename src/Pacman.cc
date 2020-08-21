@@ -2,7 +2,7 @@
 #include <list>
 #include <string>
 #include <octetos/coreutils/Apishell.hh>
-
+#include <regex>
 
 #include "Pacman.hh"
 
@@ -33,10 +33,35 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 		return false;
 	}
 	//std::cout << "getVersion:Step 2\n";
-	
+
+	std::string verpk;
 	bool findedPk = false;
-	std::string pkname;
-	std::size_t with_flver = package.find("-");//si el paquete incluye informacion de version
+	std::string pkname,pureName;
+	//std::size_t with_flver = 0;
+	std::regex regex("-");
+	std::vector<std::string> regexout(
+					std::sregex_token_iterator(package.begin(), package.end(), regex, -1),
+					std::sregex_token_iterator()
+					);
+	if(regexout.size() > 0) 
+	{
+		verpk = regexout[regexout.size()-1];
+		octetos::core::Semver vercheck;
+		if(vercheck.extractNumbers(verpk))
+		{//tiene version
+			for(int i = 0; i < regexout.size() - 2 ; i++)
+			{
+				pureName += regexout[i];
+			}
+		}
+		else
+		{
+			for(int i = 0; i < regexout.size() - 1 ; i++)
+			{
+				pureName += regexout[i];
+			}
+		}
+	}
 	int counpk_match = 0;
 	//std::cout << "getVersion:Step 3\n";
 	for(std::string d : dirs)
@@ -49,7 +74,7 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 			continue;
 		}
 		//std::cout << "getVersion:Step 3.2\n";
-		if(std::string::npos != with_flver)
+		if(regexout.size() > 0)
 		{
 			if(d.find(package) == 0 )
 			{
@@ -96,9 +121,9 @@ bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 	}
 	//std::cout << "getVersion:Step 6\n";
 
-	std::string verpk;
-	if(std::string::npos != with_flver) verpk = pkname.substr(with_flver + 1);
-	else verpk = pkname.substr(package.size() + 1);
+	
+	
+	verpk = pkname.substr(package.size() + 1);
 	if(!ver.extractNumbers(verpk)) 
 	{
 		std::cerr << "Fallo al parsear la version '" << verpk << "'.\n";

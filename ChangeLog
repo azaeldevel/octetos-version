@@ -1,11 +1,11 @@
 2020-08-21 Azael Reyes <azael.devel@gmail.com>
 version 0.13.1
-	- Correción de no paramatros pasados
-	- Correcion de paquetes con gion en el nombre
+	- Correción de no paramatros pasados.
+	- Correcion de paquetes con guion en el nombre(Pacman).
 
 2020-08-20 Azael Reyes <azael.devel@gmail.com>
 version 0.13.0
-	- Se agrege un script de ejemplo
+	- Se agrege un script de ejemplo.
 		El script es una reinterpretacion del del srcipt version-check.sh
 		proveido por LFS Book.
 

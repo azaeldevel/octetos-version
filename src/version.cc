@@ -21,6 +21,10 @@ bool Version::get_autohelp()const
 	return autohelp;
 }
 
+/**
+ * \brief 
+ * \return true si el directorio puede ser ignorado, false en otro caso.
+ */
 bool Version::jump(const std::string& directory,const std::string& name)const
 {
 	//std::cout << "jump:Step 1.\n";

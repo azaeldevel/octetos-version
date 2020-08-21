@@ -156,6 +156,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 						std::sregex_token_iterator()
 						);
 		//std::cout << d << " count : " << regexoutname.size() << "\n";
+		//std::cout << name << "\n";
 		for(int i = 0; i < regexoutname.size(); i++)
 		{
 			//std::cout << "Processing " << regexoutname[i] << "\n";
@@ -183,6 +184,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 		}
 		else
 		{
+			//std::cout << " Name : " << name << " : Directory " << d << " \n";
 			if(d.find(name + "-" ) == 0 )
 			{
 				findedPk = true;

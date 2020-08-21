@@ -16,7 +16,6 @@ INSTALATION INSTRUCTIONS.
 Dependencies
 ============
 Firts you need install all dependencies
-    octetos-core        download it from https://github.com/azaeldevel/octetos-core.git
     octetos-coreutils   download it from https://github.com/azaeldevel/octetos-coreutils.git
     CUnit               if you need testing.
 

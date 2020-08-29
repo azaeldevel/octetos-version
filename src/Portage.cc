@@ -1,5 +1,5 @@
 
-#include <octetos/coreutils/Apishell.hh>
+#include <octetos/coreutils/shell.hh>
 #include <regex>
 
 #include "Portage.hh"
@@ -18,7 +18,7 @@ bool Portage::deductCategory(const std::string& name,std::string& category)
 	//std::cout << "deductCategory:Step 0.\n";
 	
 	//int countmatch = 0;
-	coreutils::Apishell shell;
+	coreutils::Shell shell;
 	std::string prevCat = "";
 	
 	if(!shell.cd(db))	
@@ -35,7 +35,7 @@ bool Portage::deductCategory(const std::string& name,std::string& category)
 	}
 	//std::cout << "deductCategory:Step 2. \n";
 	
-	coreutils::Apishell shell2;
+	coreutils::Shell shell2;
 	std::list<std::string> dirs2;
 	for(std::string cat : dirs)
 	{
@@ -110,7 +110,7 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	}
 	
 	//std::cout << "Step 2. \n";
-	coreutils::Apishell shell;
+	coreutils::Shell shell;
 	if(!shell.cd(db))//primero se prueba si esta la base de datos
 	{
 		std::cerr << "No se encontro la base de datos en '" << db << "'.\n";

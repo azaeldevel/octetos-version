@@ -1,7 +1,7 @@
 #include <iostream>
 #include <list>
 #include <string>
-#include <octetos/coreutils/Apishell.hh>
+#include <octetos/coreutils/shell.hh>
 #include <regex>
 
 #include "Pacman.hh"
@@ -23,7 +23,7 @@ Pacman::Pacman(int argc, char *argv[]):Version(argc,argv)
 bool Pacman::getVersion(const std::string& package,octetos::core::Semver& ver)
 {
 	//std::cout << "getVersion:Step 0\n";
-	coreutils::Apishell shell;
+	coreutils::Shell shell;
 	shell.cd(db);	
 	std::list<std::string> dirs;
 	//std::cout << "getVersion:Step 1\n";

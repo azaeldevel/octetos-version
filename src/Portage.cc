@@ -9,6 +9,8 @@ namespace octetos
 namespace version
 {
 
+	Portage::Portage()
+	{}
 Version::Platform Portage::getPlatform()const
 {
 	return Version::Platform::Portage;

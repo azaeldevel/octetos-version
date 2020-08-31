@@ -35,6 +35,7 @@ namespace version
 			APT
 		};
 		Version(int argc, char *argv[]);
+		Version();
 		void help();
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver) = 0;
 		virtual Platform getPlatform()const = 0;
@@ -51,7 +52,7 @@ namespace version
 		const std::string& getmsg_unknowOption()const;
 	};
 	
-
+	bool getVersion(const std::string& package,octetos::core::Semver& ver);
 }
 }
 

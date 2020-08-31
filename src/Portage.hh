@@ -16,6 +16,7 @@ namespace version
 		bool deductCategory(const std::string& package,std::string& cantegory);
 	public:
 		Portage(int argc, char *argv[]);
+		Portage();
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver);
 		virtual Version::Platform getPlatform()const;
 	}; 

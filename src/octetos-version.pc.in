@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@prefix@/lib
+datarootdir=@datarootdir@
+datadir=@datadir@
+includedir=@prefix@/include
+
+Name: octetos-version
+Description: A command line function for package version management.
+Version: @VERSION@
+Requires: 
+Libs: -L${libdir} -loctetos-core -lconfig++
+Cflags: -I${includedir}

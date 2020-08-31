@@ -14,6 +14,8 @@ namespace octetos
 {
 namespace version
 {
+	Version::Version()
+	{}
 
 	bool Version::get_unknowOption() const
 	{

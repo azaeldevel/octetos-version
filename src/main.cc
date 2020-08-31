@@ -21,26 +21,26 @@
 #include <string.h>
 
 
-#if PORTAGE
+#ifdef PORTAGE
 	#include "Portage.hh"
-#endif
-#if PACMAN
+#elif defined PACMAN
 	#include "Pacman.hh"
-#endif
-#if APT
+#elif defined APT
 #error "The backend for APT is in development"
+#else 
+#error "Plateforma desconocida."
 #endif
 
 int main(int argc, char *argv[])
 {
-#if PORTAGE
+#ifdef PORTAGE
 	octetos::version::Portage cmdver(argc,argv);
-#endif
-#if PACMAN
+#elif defined PACMAN
 	octetos::version::Pacman cmdver(argc,argv);
-#endif
-#if APT
+#elif defined APT
 #error "The backend for APT is in development"
+#else 
+#error "Plataforma desconocida."
 #endif
 	if(cmdver.get_unknowOption())
 	{

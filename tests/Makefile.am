@@ -10,7 +10,9 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-noinst_PROGRAMS = v0
+check_PROGRAMS = v0
+TESTS= $(check_PROGRAMS)
+
 
 if WITH_PORTAGE
 v0_CPPFLAGS = -DPORTAGE
@@ -27,3 +29,4 @@ endif
 if WITH_PACMAN
 v0_SOURCES += $(top_srcdir)/src/Pacman.cc
 endif
+ 

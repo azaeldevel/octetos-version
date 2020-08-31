@@ -21,3 +21,4 @@ src/.gitignore
 *~
 octetos-version.anjuta
 ing/.~*.ods#
+test-driver

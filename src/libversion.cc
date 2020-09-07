@@ -1,7 +1,7 @@
 
-#ifdef PORTAGE
+#ifdef GENTOO
 	#include "Portage.hh"
-#elif defined PACMAN
+#elif defined ARCH
 	#include "Pacman.hh"
 #elif defined APT
 #error "The backend for APT is in development"
@@ -16,9 +16,9 @@ namespace version
 
 	bool getVersion(const std::string& package,octetos::core::Semver& ver)
 	{
-#ifdef PORTAGE
+#ifdef GENTOO
 		octetos::version::Portage cmdver;
-#elif defined PACMAN
+#elif defined ARCH
 		octetos::version::Pacman cmdver;
 #elif defined APT
 #error "The backend for APT is in development"

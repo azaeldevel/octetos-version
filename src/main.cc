@@ -21,9 +21,9 @@
 #include <string.h>
 
 
-#ifdef PORTAGE
+#ifdef GENTOO
 	#include "Portage.hh"
-#elif defined PACMAN
+#elif defined ARCH
 	#include "Pacman.hh"
 #elif defined APT
 #error "The backend for APT is in development"
@@ -33,9 +33,9 @@
 
 int main(int argc, char *argv[])
 {
-#ifdef PORTAGE
+#ifdef GENTOO
 	octetos::version::Portage cmdver(argc,argv);
-#elif defined PACMAN
+#elif defined ARCH
 	octetos::version::Pacman cmdver(argc,argv);
 #elif defined APT
 #error "The backend for APT is in development"
@@ -68,11 +68,11 @@ int main(int argc, char *argv[])
 	{
 		switch(cmdver.getPlatform())
 		{
-			case octetos::version::Version::Platform::Portage:
-				std::cout << "Portage\n";
+			case octetos::version::Version::Platform::Gentoo:
+				std::cout << "Gentoo\n";
 				break;
-			case octetos::version::Version::Platform::Pacman:
-				std::cout << "Pacman\n";
+			case octetos::version::Version::Platform::Arch:
+				std::cout << "Arch\n";
 				break;
 			default:
 				std::cout << "Desconocido\n";

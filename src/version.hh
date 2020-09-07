@@ -30,8 +30,8 @@ namespace version
 	public:
 		enum Platform
 		{
-			Portage,
-			Pacman,
+			Gentoo,
+			Arch,
 			APT
 		};
 		Version(int argc, char *argv[]);

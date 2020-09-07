@@ -19,19 +19,19 @@ version_CFLAGS =-I$(OCTETOS_VERSION_CFLAGS)
 version_SOURCES = \
 	main.cc \
 	version.cc
-if WITH_PORTAGE
+if WITH_GENTOO
 version_SOURCES += Portage.cc
 endif
-if WITH_PACMAN
+if WITH_ARCH
 version_SOURCES += Pacman.cc
 endif
 version_LDFLAGS =
 version_LDADD = $(OCTETOS_VERSION_LIBS)
-if WITH_PORTAGE
-version_CPPFLAGS = -DPORTAGE
+if WITH_GENTOO
+version_CPPFLAGS = -DGENTOO
 endif
-if WITH_PACMAN
-version_CPPFLAGS = -DPACMAN
+if WITH_ARCH
+version_CPPFLAGS = -DARCH
 endif
 if NATIVE_WIN32
 version_LDFLAGS += -mwindows 
@@ -40,11 +40,11 @@ endif
 
 libversion_la_CFLAGS = -fPIC
 libversion_la_CPPFLAGS = -fPIC
-if WITH_PORTAGE
-libversion_la_CPPFLAGS = -DPORTAGE
+if WITH_GENTOO
+libversion_la_CPPFLAGS = -DGENTOO
 endif
-if WITH_PACMAN
-libversion_la_CPPFLAGS = -DPACMAN
+if WITH_ARCH
+libversion_la_CPPFLAGS = -DARCH
 endif
 libversion_la_CXXFLAGS = -fPIC
 libversion_la_LDFLAGS = -shared -fPIC

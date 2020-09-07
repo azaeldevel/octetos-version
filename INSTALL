@@ -349,6 +349,8 @@ workaround:
    'configure' recognizes the following options to control how it
 operates.
 
+--with-gentoo		Enable support for Gentoo system
+--with-arch			Enable support for Arch Linux system
 '--help'
 '-h'
      Print a summary of all of the options to 'configure', and exit.

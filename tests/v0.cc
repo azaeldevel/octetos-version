@@ -3,9 +3,9 @@
 #include <regex>
 #include <string.h>
 
-#ifdef PORTAGE
+#ifdef GENTOO
 	#include "Portage.hh"
-#elif PACMAN
+#elif defined ARCH
 	#include "Pacman.hh"
 #elif APT
 #error "The backend for APT is in development"
@@ -24,7 +24,7 @@ void comparations()
 
 //Generic test >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//test1
-#ifdef PORTAGE
+#ifdef GENTOO
 	if(writeParamschar("version -ci make g= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -34,7 +34,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test1(argc,argv);
-#elif PACMAN
+#elif defined ARCH
 	if(writeParamschar("version -ci make g= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -64,7 +64,7 @@ void comparations()
 		}
 	}	
 //test2
-#ifdef PORTAGE
+#ifdef GENTOO
 	if(writeParamschar("version -ci python-3.7 g= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -74,7 +74,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test2(argc,argv);
-#elif PACMAN
+#elif defined ARCH
 	if(writeParamschar("version -ci python g= 2.7",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -105,7 +105,7 @@ void comparations()
 	}	
 
 //test3
-#ifdef PORTAGE
+#ifdef GENTOO
 	if(writeParamschar("version -ci gcc-9.2 g= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -115,7 +115,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test3(argc,argv);
-#elif PACMAN
+#elif defined ARCH
 	if(writeParamschar("version -ci gcc g= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -146,7 +146,7 @@ void comparations()
 	}	
 
 	//test4
-#ifdef PORTAGE
+#ifdef GENTOO
 	if(writeParamschar("version -ci xz-utils g= 4.3",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -156,7 +156,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test4(argc,argv);
-#elif PACMAN
+#elif defined ARCH
 	if(writeParamschar("version -ci xz g= 4.3",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -187,7 +187,7 @@ void comparations()
 	}	
 
 	//test5
-#ifdef PORTAGE
+#ifdef GENTOO
 	if(writeParamschar("version -ci sys-devel/bison g= 3.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -197,7 +197,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test5(argc,argv);
-#elif PACMAN
+#elif defined ARCH
 	if(writeParamschar("version -ci bison g= 3.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -237,7 +237,7 @@ void comparations_negatives()
 
 //Generic test >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//test1
-#ifdef PORTAGE
+#ifdef GENTOO
 	if(writeParamschar("version -ci make s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -247,7 +247,7 @@ void comparations_negatives()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test1(argc,argv);
-#elif PACMAN
+#elif defiend ARCH
 	if(writeParamschar("version -ci make s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -277,7 +277,7 @@ void comparations_negatives()
 		}
 	}	
 //test2
-#ifdef PORTAGE
+#ifdef GENTOO
 	if(writeParamschar("version -ci python-3.7 s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -287,7 +287,7 @@ void comparations_negatives()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test2(argc,argv);
-#elif PACMAN
+#elif defined ARCH
 	if(writeParamschar("version -ci python s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -326,7 +326,7 @@ void comparations_negatives()
 	}	
 
 //test3
-#ifdef PORTAGE
+#ifdef GENTOO
 	if(writeParamschar("version -ci gcc-9.2 s= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -336,7 +336,7 @@ void comparations_negatives()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test3(argc,argv);
-#elif PACMAN
+#elif defined ARCH
 	if(writeParamschar("version -ci gcc s= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);

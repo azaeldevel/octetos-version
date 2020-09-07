@@ -15,6 +15,7 @@ namespace version
 		
 	public:
 		Pacman(int argc, char *argv[]);
+		Pacman();
 		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver);
 		virtual Version::Platform getPlatform()const;
 	}; 

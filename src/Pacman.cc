@@ -14,8 +14,10 @@ namespace version
 
 Version::Platform Pacman::getPlatform()const
 {
-	return Version::Platform::Pacman;
+	return Version::Platform::Arch;
 }
+Pacman::Pacman()
+{}
 Pacman::Pacman(int argc, char *argv[]):Version(argc,argv)
 {
 	db = "/var/lib/pacman/local/";

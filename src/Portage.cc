@@ -13,7 +13,7 @@ namespace version
 	{}
 Version::Platform Portage::getPlatform()const
 {
-	return Version::Platform::Gentoo;
+	return Version::Platform::portage;
 }
 bool Portage::deductCategory(const std::string& name,std::string& category)
 {

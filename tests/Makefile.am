@@ -14,19 +14,19 @@ check_PROGRAMS = v0
 TESTS= $(check_PROGRAMS)
 
 
-if WITH_GENTOO
-v0_CPPFLAGS = -DGENTOO
+if WITH_PORTAGE
+v0_CPPFLAGS = -DPORTAGE
 endif
-if WITH_ARCH
-v0_CPPFLAGS = -DARCH
+if WITH_PACMAN
+v0_CPPFLAGS = -DPACMAN
 endif
 v0_LDADD = $(CUNIT_LIBS) $(OCTETOS_VERSION_LIBS)
 v0_CXXFLAGS = -I$(top_srcdir)/src
 v0_SOURCES = v0.cc $(top_srcdir)/src/version.cc 
-if WITH_GENTOO
+if WITH_PORTAGE
 v0_SOURCES += $(top_srcdir)/src/Portage.cc
 endif
-if WITH_ARCH
+if WITH_PACMAN
 v0_SOURCES += $(top_srcdir)/src/Pacman.cc
 endif
  

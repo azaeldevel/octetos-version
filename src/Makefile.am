@@ -19,19 +19,25 @@ version_CFLAGS =-I$(OCTETOS_VERSION_CFLAGS)
 version_SOURCES = \
 	main.cc \
 	version.cc
-if WITH_GENTOO
+if WITH_PORTAGE
 version_SOURCES += Portage.cc
 endif
-if WITH_ARCH
+if WITH_PACMAN
 version_SOURCES += Pacman.cc
+endif
+if WITH_APT
+version_SOURCES += Apt.cc
 endif
 version_LDFLAGS =
 version_LDADD = $(OCTETOS_VERSION_LIBS)
-if WITH_GENTOO
-version_CPPFLAGS = -DGENTOO
+if WITH_PORTAGE
+version_CPPFLAGS = -DPORTAGE
 endif
-if WITH_ARCH
-version_CPPFLAGS = -DARCH
+if WITH_PACMAN
+version_CPPFLAGS = -DPACMAN
+endif
+if WITH_APT
+version_CPPFLAGS = -DAPT
 endif
 if NATIVE_WIN32
 version_LDFLAGS += -mwindows 
@@ -40,11 +46,14 @@ endif
 
 libversion_la_CFLAGS = -fPIC
 libversion_la_CPPFLAGS = -fPIC
-if WITH_GENTOO
-libversion_la_CPPFLAGS = -DGENTOO
+if WITH_PORTAGE
+libversion_la_CPPFLAGS = -DPORTAGE
 endif
-if WITH_ARCH
-libversion_la_CPPFLAGS = -DARCH
+if WITH_PACMAN
+libversion_la_CPPFLAGS = -DPACMAN
+endif
+if WITH_APT
+libversion_la_CPPFLAGS = -DAPT
 endif
 libversion_la_CXXFLAGS = -fPIC
 libversion_la_LDFLAGS = -shared -fPIC
@@ -59,8 +68,6 @@ libversion_la_SOURCES = libversion.cc
 
 
 
-libshmem_la_SOURCES = dummy.c
-libshmem_la_CFLAGS = -fPIC
 
 octetos_version_includedir = $(includedir)/octetos/version
 octetos_version_include_HEADERS = version.hh

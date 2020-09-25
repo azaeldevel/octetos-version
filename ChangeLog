@@ -1,3 +1,8 @@
+2020-09-24 Azael Reyes <azael.devel@gmail.com>
+v0.18.0
+	- Cambiar la salida de la opción -p para que indique el sistema operativo(portage)
+	- Preparativos para APT.
+
 2020-09-07 Azael Reyes <azael.devel@gmail.com>
 v0.17.0
 	- Cambiar la salida de la opción -p para que indique el sistema operativo(Arch)

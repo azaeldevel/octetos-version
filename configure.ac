@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(octetos_version, 0.17.0-alpha)
+AC_INIT(octetos_version, 0.18.0-alpha)
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([1.11])
 AM_SILENT_RULES([yes])
@@ -50,11 +50,14 @@ PKG_CHECK_MODULES(OCTETOS_VERSION, [octetos-core octetos-coreutils])
 AM_CONDITIONAL(PLATFORM_WIN32, test x"$platform_win32" = "xyes")
 AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
-AM_CONDITIONAL(WITH_GENTOO, test x"$with_gentoo" = "xyes")
-AC_ARG_WITH([gentoo], AS_HELP_STRING([--with-gentoo], [Activando soporte para Gentoo.]))
+AM_CONDITIONAL(WITH_PORTAGE, test x"$with_portage" = "xyes")
+AC_ARG_WITH([portage], AS_HELP_STRING([--with-portage], [Activando soporte para Gentoo.]))
 
-AM_CONDITIONAL(WITH_ARCH, test x"$with_arch" = "xyes")
-AC_ARG_WITH([arch], AS_HELP_STRING([--with-arch], [Activando soporte para ArchLinux.]))
+AM_CONDITIONAL(WITH_PACMAN, test x"$with_pacman" = "xyes")
+AC_ARG_WITH([pacman], AS_HELP_STRING([--with-pacman], [Activando soporte para ArchLinux.]))
+
+AM_CONDITIONAL(WITH_APT, test x"$with_apt" = "xyes")
+AC_ARG_WITH([apt], AS_HELP_STRING([--with-apt], [Activando soporte para Debian.]))
 
 
 

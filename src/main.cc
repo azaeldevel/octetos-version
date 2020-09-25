@@ -21,24 +21,37 @@
 #include <string.h>
 
 
-#ifdef GENTOO
+#ifdef PORTAGE
 	#include "Portage.hh"
-#elif defined ARCH
+#elif defined PACMAN
 	#include "Pacman.hh"
 #elif defined APT
-#error "The backend for APT is in development"
+	#include <apt-pkg/cachefile.h>
+	#include <apt-pkg/pkgcache.h>
+	#include "Apt.hh"
 #else 
 #error "Plateforma desconocida."
 #endif
 
 int main(int argc, char *argv[])
 {
-#ifdef GENTOO
+#ifdef PORTAGE
 	octetos::version::Portage cmdver(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	octetos::version::Pacman cmdver(argc,argv);
 #elif defined APT
-#error "The backend for APT is in development"
+	octetos::version::Apt cmdver(argc,argv);
+
+	pkgInitConfig(*_config);
+    pkgInitSystem(*_config, _system);
+
+    pkgCacheFile cache_file;
+    pkgCache* cache = cache_file.GetPkgCache();
+
+    for (pkgCache::PkgIterator package = cache->PkgBegin(); !package.end(); package++) {
+        std::cout << package.Name() << std::endl;
+    }
+	
 #else 
 #error "Plataforma desconocida."
 #endif
@@ -68,11 +81,14 @@ int main(int argc, char *argv[])
 	{
 		switch(cmdver.getPlatform())
 		{
-			case octetos::version::Version::Platform::Gentoo:
-				std::cout << "Gentoo\n";
+			case octetos::version::Version::Platform::portage:
+				std::cout << "Portage\n";
 				break;
-			case octetos::version::Version::Platform::Arch:
-				std::cout << "Arch\n";
+			case octetos::version::Version::Platform::pacman:
+				std::cout << "Pacman\n";
+				break;
+			case octetos::version::Version::Platform::apt:
+				std::cout << "APT\n";
 				break;
 			default:
 				std::cout << "Desconocido\n";
@@ -128,7 +144,7 @@ int main(int argc, char *argv[])
 			}
 			return EXIT_FAILURE;
 		}
-	}	
+	}
 	
 	std::cerr << "Unknow parameters.\n";
 	return EXIT_FAILURE;

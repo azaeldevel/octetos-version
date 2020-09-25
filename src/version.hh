@@ -30,9 +30,10 @@ namespace version
 	public:
 		enum Platform
 		{
-			Gentoo,
-			Arch,
-			APT
+			None,
+			portage,
+			pacman,
+			apt
 		};
 		Version(int argc, char *argv[]);
 		Version();

@@ -5,7 +5,7 @@
 
 #ifdef PORTAGE
 	#include "Portage.hh"
-#elif defined ARCH
+#elif defined PACMAN
 	#include "Pacman.hh"
 #elif APT
 #error "The backend for APT is in development"
@@ -34,7 +34,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test1(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	if(writeParamschar("version -ci make g= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -74,7 +74,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test2(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	if(writeParamschar("version -ci python g= 2.7",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -115,7 +115,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test3(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	if(writeParamschar("version -ci gcc g= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -156,7 +156,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test4(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	if(writeParamschar("version -ci xz g= 4.3",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -197,7 +197,7 @@ void comparations()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test5(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	if(writeParamschar("version -ci bison g= 3.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -247,7 +247,7 @@ void comparations_negatives()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test1(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	if(writeParamschar("version -ci make s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -287,7 +287,7 @@ void comparations_negatives()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test2(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	if(writeParamschar("version -ci python s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -336,7 +336,7 @@ void comparations_negatives()
 		CU_ASSERT(false);
 	}
 	octetos::version::Portage cmdver_test3(argc,argv);
-#elif defined ARCH
+#elif defined PACMAN
 	if(writeParamschar("version -ci gcc s= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);

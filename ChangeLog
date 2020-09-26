@@ -1,5 +1,9 @@
+2020-09-26 Azael Reyes <azael.devel@gmail.com>
+v0.19.0-alpha
+	- Cambiar la salida de la opción -p para que indique el sistema operativo(pacman)
+
 2020-09-24 Azael Reyes <azael.devel@gmail.com>
-v0.18.0
+v0.18.0-alpha
 	- Cambiar la salida de la opción -p para que indique el sistema operativo(portage)
 	- Preparativos para APT.
 

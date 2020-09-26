@@ -14,7 +14,7 @@ namespace version
 
 Version::Platform Pacman::getPlatform()const
 {
-	return Version::Platform::Arch;
+	return Version::Platform::pacman;
 }
 Pacman::Pacman()
 {}

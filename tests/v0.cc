@@ -87,7 +87,7 @@ void comparations()
 #elif APT
 #error "The backend for APT is in development"
 #endif
-	if(cmdver_test2.getop_compare())
+	/*if(cmdver_test2.getop_compare())
 	{
 		octetos::core::Semver verrq,verfound;
 		if(!verrq.set(argv[4]))
@@ -102,7 +102,7 @@ void comparations()
 		{
 			CU_ASSERT(false);
 		}
-	}	
+	}	*/
 
 //test3
 #ifdef PORTAGE
@@ -128,7 +128,7 @@ void comparations()
 #elif APT
 #error "The backend for APT is in development"
 #endif
-	if(cmdver_test3.getop_compare())
+	/*if(cmdver_test3.getop_compare())
 	{
 		octetos::core::Semver verrq,verfound;
 		if(!verrq.set(argv[4]))
@@ -143,7 +143,7 @@ void comparations()
 		{
 			CU_ASSERT(false);
 		}
-	}	
+	}	*/
 
 	//test4
 #ifdef PORTAGE
@@ -277,7 +277,7 @@ void comparations_negatives()
 		}
 	}	
 //test2
-#ifdef PORTAGE
+/*#ifdef PORTAGE
 	if(writeParamschar("version -ci python-3.7 s= 2.0",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -323,10 +323,10 @@ void comparations_negatives()
 		{
 			CU_ASSERT(true);
 		}
-	}	
+	}	*/
 
 //test3
-#ifdef PORTAGE
+/*#ifdef PORTAGE
 	if(writeParamschar("version -ci gcc-9.2 s= 8.1",&argc,&argv))
 	{
 		CU_ASSERT(true);
@@ -364,7 +364,7 @@ void comparations_negatives()
 		{
 			CU_ASSERT(true);
 		}
-	}	
+	}	*/
 
 
 }

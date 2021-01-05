@@ -1,21 +1,11 @@
 AUTOMAKE_OPTIONS=foreign 1.4
 
-AM_CPPFLAGS = \
-	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
-	-DPACKAGE_SRC_DIR=\""$(srcdir). \
-	$(octetos-core_CFLAGS)"\" \
-	-DPACKAGE_DATA_DIR=\""$(pkgdatadir)"\" \
-	$(OCTETOS_VERSION_CFLAGS)
-
-AM_CFLAGS =\
-	 -Wall\
-	 -g 
 
 bin_PROGRAMS = version
 lib_LTLIBRARIES = libversion.la
 
 
-version_CFLAGS =-I$(OCTETOS_VERSION_CFLAGS)
+version_CFLAGS = $(OCTETOS_CORE_CFLAGS) $(OCTETOS_COREUTILS_CFLAGS)
 version_SOURCES = \
 	main.cc \
 	version.cc
@@ -29,7 +19,7 @@ if WITH_APT
 version_SOURCES += Apt.cc
 endif
 version_LDFLAGS =
-version_LDADD = $(OCTETOS_VERSION_LIBS)
+version_LDADD = $(OCTETOS_CORE_LIBS) $(OCTETOS_COREUTILS_LIBS)
 if WITH_PORTAGE
 version_CPPFLAGS = -DPORTAGE
 endif
@@ -39,13 +29,10 @@ endif
 if WITH_APT
 version_CPPFLAGS = -DAPT
 endif
-if NATIVE_WIN32
-version_LDFLAGS += -mwindows 
-endif
 
 
-libversion_la_CFLAGS = -fPIC
-libversion_la_CPPFLAGS = -fPIC
+
+
 if WITH_PORTAGE
 libversion_la_CPPFLAGS = -DPORTAGE
 endif
@@ -56,13 +43,9 @@ if WITH_APT
 libversion_la_CPPFLAGS = -DAPT
 endif
 libversion_la_CXXFLAGS = -fPIC
-libversion_la_LDFLAGS = -shared -fPIC
-if PLATFORM_WIN32
-libversion_la_LDFLAGS += -no-undefined
-endif
-if NATIVE_WIN32
-libversion_la_LDFLAGS += -export-dynamic
-endif
+
+
+
 libversion_la_LIBADD = 
 libversion_la_SOURCES = libversion.cc
 

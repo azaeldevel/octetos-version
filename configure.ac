@@ -1,7 +1,6 @@
-dnl Process this file with autoconf to produce a configure script.
-dnl Created by Anjuta application wizard.
 
-AC_INIT(octetos_version, 0.19.0-alpha)
+
+AC_INIT(octetos-version, 0.20.1-alpha)
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([1.11])
 AM_SILENT_RULES([yes])
@@ -22,33 +21,13 @@ dnl ***************************************************************************
 #AM_GLIB_GNU_GETTEXT
 
 
-
-dnl ***************************************************************************
-dnl Check for Windows
-dnl ***************************************************************************
-AC_CANONICAL_HOST
-
-case $host_os in
-  *mingw*)
-    platform_win32=yes
-    native_win32=yes
-    ;;
-  pw32* | *cygwin*)
-    platform_win32=yes
-    native_win32=no
-    ;;
-  *)
-    platform_win32=no
-    native_win32=no
-    ;;
-esac
+LT_INIT
 
 
+PKG_CHECK_MODULES(OCTETOS_CORE, octetos-core)
 
-PKG_CHECK_MODULES(OCTETOS_VERSION, [octetos-core octetos-coreutils])
+PKG_CHECK_MODULES(OCTETOS_COREUTILS, octetos-coreutils)
 
-AM_CONDITIONAL(PLATFORM_WIN32, test x"$platform_win32" = "xyes")
-AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
 AM_CONDITIONAL(WITH_PORTAGE, test x"$with_portage" = "xyes")
 AC_ARG_WITH([portage], AS_HELP_STRING([--with-portage], [Activando soporte para Gentoo.]))
@@ -60,11 +39,11 @@ AM_CONDITIONAL(WITH_APT, test x"$with_apt" = "xyes")
 AC_ARG_WITH([apt], AS_HELP_STRING([--with-apt], [Activando soporte para Debian.]))
 
 
-
-LT_INIT([win32-dll])
-
-
-PKG_CHECK_MODULES(CUNIT,cunit)
+AM_CONDITIONAL(WITH_TESTS, test x"$with_tests" = "xyes")
+AC_ARG_WITH([tests], AS_HELP_STRING([--with-tests], [Compilando con soporte para Tests]))
+if test "x$with_tests" = "xyes"; then 
+	PKG_CHECK_MODULES(CUNIT,cunit)
+fi
 
 
 
@@ -72,6 +51,5 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 src/octetos-version.pc
-tests/Makefile
 ])
 

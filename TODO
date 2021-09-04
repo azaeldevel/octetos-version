@@ -1,2 +1,4 @@
 Azael Reyes <azael.devel@gmail.com>
  - Agregar API publica
+ - Agregar -s para selint mode
+ - Agregar -f para failt on false expresion

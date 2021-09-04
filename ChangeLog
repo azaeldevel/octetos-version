@@ -1,3 +1,7 @@
+2021-09-02 Azael Reyes <azael.devel@gmail.com>
+v0.20.0-alpha
+	- removing dependency octetos-coreutils
+
 2020-09-26 Azael Reyes <azael.devel@gmail.com>
 v0.19.0-alpha
 	- Cambiar la salida de la opción -p para que indique el sistema operativo(pacman)

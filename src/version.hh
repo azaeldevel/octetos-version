@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <octetos/core/Version.hh>
+#include <octetos/core/shell.hh>
 
-
-namespace octetos
+namespace oct
 {
 namespace version
 {
@@ -26,6 +26,7 @@ namespace version
 	protected:
 		
 		bool jump(const std::string& directory,const std::string&  name)const;
+		oct::core::Shell shell;
 
 	public:
 		enum Platform
@@ -38,10 +39,10 @@ namespace version
 		Version(int argc, char *argv[]);
 		Version();
 		void help();
-		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver) = 0;
+		virtual bool getVersion(const std::string& package,oct::core::Semver& ver) = 0;
 		virtual Platform getPlatform()const = 0;
-		virtual bool compare(const std::string& package,const std::string& op,octetos::core::Semver& ver);
-		virtual bool compare(const std::string& package,const std::string& op,octetos::core::Semver& verrq,octetos::core::Semver& verfound);
+		virtual bool compare(const std::string& package,const std::string& op,oct::core::Semver& ver);
+		virtual bool compare(const std::string& package,const std::string& op,oct::core::Semver& verrq,oct::core::Semver& verfound);
 		bool getop_help()const;
 		bool getop_compare()const;
 		bool getop_indicators()const;

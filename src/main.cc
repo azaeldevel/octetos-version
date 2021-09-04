@@ -36,7 +36,7 @@
 int main(int argc, char *argv[])
 {
 #ifdef PORTAGE
-	octetos::version::Portage cmdver(argc,argv);
+	oct::version::Portage cmdver(argc,argv);
 #elif defined PACMAN
 	octetos::version::Pacman cmdver(argc,argv);
 #elif defined APT
@@ -81,13 +81,13 @@ int main(int argc, char *argv[])
 	{
 		switch(cmdver.getPlatform())
 		{
-			case octetos::version::Version::Platform::portage:
+			case oct::version::Version::Platform::portage:
 				std::cout << "Portage\n";
 				break;
-			case octetos::version::Version::Platform::pacman:
+			case oct::version::Version::Platform::pacman:
 				std::cout << "Pacman\n";
 				break;
-			case octetos::version::Version::Platform::apt:
+			case oct::version::Version::Platform::apt:
 				std::cout << "APT\n";
 				break;
 			default:
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 	//>>>>>>>>>>>>>>>>>>>>>operation
 	if(cmdver.getop_version())
 	{
-		octetos::core::Semver verpk;
+		oct::core::Semver verpk;
 		if(cmdver.getVersion(argv[2],verpk))
 		{
 			std::cout << (std::string)verpk << "\n";
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 	
 	if(cmdver.getop_compare())
 	{
-		octetos::core::Semver verrq,verfound;
+		oct::core::Semver verrq,verfound;
 		if(!verrq.set(argv[4]))
 		{
 			std::cerr << "Fallo el parseo de la version indicada '" << argv[4] << "'\n.";;

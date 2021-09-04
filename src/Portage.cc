@@ -1,10 +1,10 @@
 
-#include <octetos/coreutils/shell.hh>
+
 #include <regex>
 
 #include "Portage.hh"
 
-namespace octetos
+namespace oct
 {
 namespace version
 {
@@ -20,24 +20,32 @@ bool Portage::deductCategory(const std::string& name,std::string& category)
 	//std::cout << "deductCategory:Step 0.\n";
 	
 	//int countmatch = 0;
-	coreutils::Shell shell;
+	
 	std::string prevCat = "";
 	
-	if(!shell.cd(db))	
+	try
+	{
+		shell.cd(db);
+	}	
+	catch(const std::exception& ex)
 	{
 		std::cerr << "No se encontro la base de datos.\n";
 		return false;
 	}
 	//std::cout << "deductCategory:Step 1. \n";
 	std::list<std::string> dirs;
-	if(!shell.ls(dirs)) 
+	try
+	{
+		shell.ls(dirs); 
+	}
+	catch(const std::exception& ex)
 	{
 		std::cerr << "Fallo la lectura de la base de datos.\n";
 		return false;
 	}
 	//std::cout << "deductCategory:Step 2. \n";
 	
-	coreutils::Shell shell2;
+	core::Shell shell2;
 	std::list<std::string> dirs2;
 	for(std::string cat : dirs)
 	{
@@ -46,13 +54,21 @@ bool Portage::deductCategory(const std::string& name,std::string& category)
 		
 		//std::cout << "deductCategory:Step 2.2. \n";
 		//std::cout << db+cats << ".\n";
-		if(!shell2.cd(db+cat+"/"))
+		try
+		{
+			shell2.cd(db+cat+"/");
+		}
+		catch(const std::exception& e)
 		{
 			std::cerr << "No se encontro la base de datos.\n";
 			return false;
 		}	
 		//std::cout << "deductCategory:Step 2.1. \n";
-		if(!shell2.ls(dirs2)) 
+		try
+		{
+			shell2.ls(dirs2);
+		} 
+		catch(const std::exception& ex)
 		{
 			std::cerr << "Fallo la lectura de la base de datos.\n";
 			return false;
@@ -72,7 +88,7 @@ bool Portage::deductCategory(const std::string& name,std::string& category)
 	category = prevCat;
 	return true;
 }
-bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
+bool Portage::getVersion(const std::string& package,oct::core::Semver& ver)
 {
 	//std::cout << "getVersion:Step 1. \n";
 	std::string category,name;
@@ -112,20 +128,32 @@ bool Portage::getVersion(const std::string& package,octetos::core::Semver& ver)
 	}
 	
 	//std::cout << "Step 2. \n";
-	coreutils::Shell shell;
-	if(!shell.cd(db))//primero se prueba si esta la base de datos
+	core::Shell shell;
+	try
+	{
+		shell.cd(db);//primero se prueba si esta la base de datos
+	}
+	catch(const std::exception& ex)
 	{
 		std::cerr << "No se encontro la base de datos en '" << db << "'.\n";
 		return false;
 	}
 	//std::cout << "categoria '" << category << "'.\n";
-	if(!shell.cd(db+category))	
+	try
+	{
+		shell.cd(db+category);
+	}
+	catch(const std::exception& ex)	
 	{
 		std::cerr << "Se desconoce la categoria '" << category << "'.\n";
 		return false;
 	}
 	std::list<std::string> dirs;
-	if(!shell.ls(dirs)) 
+	try
+	{
+		shell.ls(dirs);
+	} 
+	catch(const std::exception& ex)
 	{
 		std::cerr << "Fallo la lectura de la base de datos.\n";
 		return false;

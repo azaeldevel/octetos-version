@@ -13,10 +13,10 @@ namespace octetos
 {
 namespace version
 {
-	bool getVersion(const std::string& package,octetos::core::Semver& ver)
+	bool getVersion(const std::string& package,oct::core::Semver& ver)
 	{
 #ifdef PORTAGE
-		octetos::version::Portage cmdver;
+		oct::version::Portage cmdver;
 #elif defined PACMAN
 		octetos::version::Pacman cmdver;
 #elif defined APT

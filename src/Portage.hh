@@ -3,7 +3,7 @@
 
 #include "version.hh"
 
-namespace octetos
+namespace oct
 {
 namespace version
 {
@@ -17,7 +17,7 @@ namespace version
 	public:
 		Portage(int argc, char *argv[]);
 		Portage();
-		virtual bool getVersion(const std::string& package,octetos::core::Semver& ver);
+		virtual bool getVersion(const std::string& package,oct::core::Semver& ver);
 		virtual Version::Platform getPlatform()const;
 	}; 
 

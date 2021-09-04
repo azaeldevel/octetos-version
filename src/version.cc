@@ -2,7 +2,6 @@
 #include <iostream>
 #include <list>
 #include <string>
-#include <octetos/coreutils/shell.hh>
 #include <regex>
 
 
@@ -10,7 +9,7 @@
 
 
 
-namespace octetos
+namespace oct
 {
 namespace version
 {
@@ -66,7 +65,7 @@ bool Version::jump(const std::string& directory,const std::string& name)const
 	}
 	//std::cout << "jump:Step 3\n";
 	
-	octetos::core::Semver ver;
+	oct::core::Semver ver;
 	//std::cout << "R: " << strremanente << ".\n";
 	if(!ver.extractNumbers(strremanente))
 	{//el remanten es una version por lo que no se filtra
@@ -76,7 +75,7 @@ bool Version::jump(const std::string& directory,const std::string& name)const
 	
 	return false;
 }
-bool Version::compare(const std::string& package,const std::string& op,octetos::core::Semver& verrq,octetos::core::Semver& verfound)
+bool Version::compare(const std::string& package,const std::string& op,oct::core::Semver& verrq,oct::core::Semver& verfound)
 {
 	//std::cout << "compare:Step 1.\n";	
 	//std::cout << "Pk: " << package << " Op:" << op << "\n";
@@ -114,9 +113,9 @@ bool Version::compare(const std::string& package,const std::string& op,octetos::
 		return false;
 	}
 }
-bool Version::compare(const std::string& package,const std::string& op,octetos::core::Semver& ver)
+bool Version::compare(const std::string& package,const std::string& op,oct::core::Semver& ver)
 {
-	octetos::core::Semver ver1;
+	oct::core::Semver ver1;
 	return compare(package,op,ver,ver1);
 }
 bool Version::getop_help()const

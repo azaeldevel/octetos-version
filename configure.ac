@@ -1,5 +1,5 @@
 
-AC_INIT(octetos_version, 0.20.0-alpha, azael.devel@gmail.com)
+AC_INIT(octetos_version, 0.21.0-alpha, azael.devel@gmail.com)
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([1.11])
 AM_SILENT_RULES([yes])
